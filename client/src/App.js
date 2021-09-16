@@ -1,14 +1,23 @@
-import React, {useState} from "react"
+import React from "react"
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Login from './views/Login'
+import Home from './views/';
+import LandingPage from "./views/LandingPage";
+import { Route } from 'react-router-dom';
+import Register from "./views/Register";
 
 
 const App = ()=> {
-    const [usernameReg, setUsernameReg] = userState("");
-    const [passwordReg, setPasswordReg] = userState("");
-
     return (
-        <div className="App">
-            <h1>hello</h1>
-            <h1>higit</h1>
-            </div>
-    )
+        <>
+        <CssBaseline/>
+        {/* <Login /> */}
+         <Route exact path="/" component={Home}></Route>
+        <Route path="/LandingPage" component={LandingPage}></Route>
+        <Route path="/Register" component={Register}></Route>
+        
+        </>
+    );
 }
+
+export default App;
