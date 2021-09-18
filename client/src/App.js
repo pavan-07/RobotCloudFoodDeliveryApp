@@ -5,6 +5,8 @@ import Home from './views/';
 import LandingPage from "./views/LandingPage";
 import { Route } from 'react-router-dom';
 import Register from "./views/Register";
+import UserProfile from "./views/Profile/UserProfile";
+
 
 
 const App = ()=> {
@@ -15,6 +17,7 @@ const App = ()=> {
          <Route exact path="/" component={Home}></Route>
         <Route path="/LandingPage" component={LandingPage}></Route>
         <Route path="/Register" component={Register}></Route>
+        <Route path="/UserProfile" component={UserProfile}></Route>
         
         </>
     );

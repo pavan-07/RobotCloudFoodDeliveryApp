@@ -3,19 +3,26 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
-    "type": "module",
-    
     "scripts": {
         "start": "nodemon index.js"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "aws-sdk": "^2.991.0",
+        "bcrypt": "^5.0.1",
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
         "express": "^4.17.1",
+        "fs": "0.0.1-security",
+        "multer": "^1.4.3",
+        "multer-s3": "^2.9.0",
         "mysql": "^2.18.1",
-        "nodemon": "^2.0.12"
+        "nodemon": "^2.0.12",
+        "pipeline": "^0.1.3",
+        "promisify": "0.0.3",
+        "uuid": "^8.3.2"
     },
     "devDependencies": {
         "eslint": "^7.32.0",

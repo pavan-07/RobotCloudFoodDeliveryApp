@@ -6,7 +6,7 @@ import '../images/style.css';
 import Axios from 'axios';
 import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
-
+import backendServer from '../Config'
 
 const RegisterUser = () =>{
 
@@ -15,7 +15,7 @@ const RegisterUser = () =>{
     const [password, setPassword] = useState("");
   
     const Register =()=> {
-          Axios.post('http://localhost:3001/RegisterUser', 
+          Axios.post(`${backendServer }/RegisterUser`, 
         {username: username, useremail:email, userpassword: password }
         ).then((response)=>{
             console.log(response)
@@ -78,7 +78,7 @@ const RegisterUser = () =>{
           />
         </Form.Group>
         <br></br>
-        <Button block size="lg" type="submit" onClick={Register()} style={styleimg} disabled={!validateForm()}>
+        <Button block size="lg" type="submit" onClick={()=>Register()} style={styleimg} disabled={!validateForm()}>
           Submit
         </Button>
       </Form>

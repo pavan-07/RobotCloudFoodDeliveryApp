@@ -6,6 +6,7 @@ import '../images/style.css';
 import Axios from 'axios';
 import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
+import backendServer from './../Config'
 
 
 const LandingPage = () =>{
@@ -13,7 +14,7 @@ const LandingPage = () =>{
     const [password, setPassword] = useState("");
   
     const login =()=> {
-          Axios.post('http://localhost:3001/LandingPage', 
+          Axios.post(`${backendServer}/LandingPage`, 
         {useremail:email, userpassword: password }
         ).then((response)=>{
             console.log(response)

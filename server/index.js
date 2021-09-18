@@ -1,63 +1,65 @@
-import mysql from 'mysql'
-import express from 'express'
-import bodyparser from 'body-parser'
-import cors from 'cors'
+
+
+//import imagestore from  '../routes/imageStore.js'
+const mysql = require("mysql");
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const uuid = require("uuid");
+const multer = require("multer");
+const  LandingPage  = require("./routes/LandingPage");
+const  UserProfile  = require("./routes/UserProfile");
+const  RegisterUser  = require("./routes/RegisterUser");
+const con = require("./connections/Dbconnection").connect
+const  imageStore  = require("./routes/imageStore");
+
 
 
 const app = express();
 
 app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-
+//app.use("/",imagestore)
 var corsOptions = {
     origin: "http://localhost:3000"
   };
 
-var con = mysql.createConnection({
-    host: "lab1akshay.cejfw5uyxavi.us-east-2.rds.amazonaws.com",
-    port: 3306,
-    user: "admin",
-    password: "admin1234",
-    database: "uber"
-});
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("connected");
-})
 
-app.post("/LandingPage", (req, res) => {
+// con.connect(function(err) {
+//     if (err) throw err;
+//     console.log("connected");
+// })
 
-    const useremail = req.body.useremail;
-    const userpassword = req.body.userpassword;
-    
+app.use("/uber-eats/api",LandingPage)
+app.use("/uber-eats/api",RegisterUser)
+app.use("/uber-eats/api",UserProfile)
+app.use("/uber-eats/api",imageStore)
 
-    con.query("INSERT INTO userLoginDetails (email, userpassword) VALUES (?, ?)", [useremail,
-        userpassword
-    ], (err, result) => {
-        console.log(err);
-    })
-    console.log("hello")
-}
-)
-app.post("/RegisterUser", (req, res) => {
-    const username = req.body.username;
-    const useremail = req.body.useremail;
-    const userpassword = req.body.userpassword;
-    
-let count =1;
-count++;
-    con.query("INSERT INTO customer(CustomerId, EmailId, CustomerName, Customerpassword) VALUES (count, ?, ?, ?)", [useremail,
-        ,username, userpassword
-    ], (err, result) => {
-        console.log(err);
-    })
-    console.log("hello")
-}
-)
+
+
+
+// app.get("/UserProfile", (req, res) => {
+
+//     con.query("Select * from customer where CustomerId=1", (err, result, fields) => {
+//         if(err) throw err;
+//         console.log(err);
+//         res.send(result);
+//     })
+//     console.log("hello")
+// })
+
+
+
+
   
+
+
 const PORT = process.env.PORT || 3001;
 
 app.listen(3001, () => {
     console.log(`Running on port ${PORT}`)
 })
+
+module.exports = app;
