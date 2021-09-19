@@ -7,9 +7,11 @@ import Axios from 'axios';
 import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from './../Config'
+import { useHistory } from 'react-router-dom';
 
 
 const LandingPage = () =>{
+  const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
   
@@ -18,6 +20,7 @@ const LandingPage = () =>{
         {useremail:email, userpassword: password }
         ).then((response)=>{
             console.log(response)
+            history.push('./Restaurant')
         });
        
   //    return email.length > 0 && password.length > 0;

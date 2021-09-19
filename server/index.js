@@ -12,7 +12,7 @@ const  UserProfile  = require("./routes/UserProfile");
 const  RegisterUser  = require("./routes/RegisterUser");
 const con = require("./connections/Dbconnection").connect
 const  imageStore  = require("./routes/imageStore");
-
+const Restaurant = require("./routes/Restaurant");
 
 
 const app = express();
@@ -36,7 +36,7 @@ app.use("/uber-eats/api",LandingPage)
 app.use("/uber-eats/api",RegisterUser)
 app.use("/uber-eats/api",UserProfile)
 app.use("/uber-eats/api",imageStore)
-
+app.use("/uber-eats/api", Restaurant)
 
 
 

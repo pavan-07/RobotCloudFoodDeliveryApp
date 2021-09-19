@@ -10,7 +10,7 @@ import logo from '../../images/UberEATS.png'
 import backendServer from '../../Config'
 
 
-import Axios from 'axios';
+
 
 
 const UserProfile = () =>{
@@ -39,12 +39,20 @@ const UserProfile = () =>{
     const data = new FormData();
      data.append('name', 'file_name.jpg');
     data.append('file', "file_name.jpg");
+    const uploadConfig = {
+      headers: {
+          "content-type": "multipart/form-data"
+      }
+  };
     let url = `${backendServer}/image/user`
    // axios.defaults.headers.common.authorization = localStorage.getItem('token');
-  //  axios.post(url, data).then((res) => {
-  //     setImage(res.data.imagepath);
-  //     // history.push('/profile');
-  //   });
+   
+   
+   
+   axios.post(url, data, uploadConfig).then((res) => {
+      setImage(res.data.imagepath);
+      // history.push('/profile');
+    });
     axios.post(`${backendServer}/UserProfile`, {
         email: email,
        emailUpdate:emailUpdate,
