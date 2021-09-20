@@ -1,7 +1,7 @@
 import Login from './Login.js';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import react, {useState} from "react";
+import react, {useState, useEffect} from "react";
 import '../images/style.css';
 import Axios from 'axios';
 import logo from '../images/uberlogo.svg';
@@ -21,10 +21,22 @@ const LandingPage = () =>{
         ).then((response)=>{
             console.log(response)
             history.push('./Restaurant')
-        });
+        });  
        
   //    return email.length > 0 && password.length > 0;
     }
+
+    console.log(email)
+
+    useEffect(async () => {
+      localStorage.setItem('currentUser', email);
+    }, [email]);
+
+    const value =  useState(async () =>{
+      localStorage.getItem('currentUser')
+    });
+    console.log("curr user", value)
+
     function validateForm() {
         return email.length > 0 && password.length > 0;
       }

@@ -1,9 +1,23 @@
 const router = require("express").Router();
 const con = require("../connections/Dbconnection")
 
-
+router.get("/UserProfile/User", (req, res) =>{
+  const email = req.query.email;
+  console.log("my email", req)
+  var userquery = "SELECT * from Customer1 where EmailId=?";
+  con.query(userquery, [email], (err, result, fields) =>{
+    if (err) throw err;
+    res.send(result);  //   res.status(200).json({
+  //     email: result[0].EmailId,
+  //     fullname: result[0].CustomerName,
+  //     phonenumber: result[0].PhoneNumber,
+    
+  // })
+})
+})
 router.post("/UserProfile", function (req, res) {
     // console.l("In profile update");
+    console.log(req);
     const emailId = req.body.email;
     const emailUpdate = req.body.emailUpdate;
     const fullnameUpdate = req.body.fullnameUpdate;
@@ -11,6 +25,7 @@ router.post("/UserProfile", function (req, res) {
     const cityUpdate = req.body.cityUpdate;
     const state = req.body.stateUpdate;
     const zipcodeUpdate = req.body.zipcodeUpdate;
+    const imageURL = req.body.imageUrl;
 
     // if (emailUpdate !== "") {
     //   if (emailUpdate !== emailId) {
@@ -21,23 +36,34 @@ router.post("/UserProfile", function (req, res) {
     //     });
     //   }
     // }
+  console.log("URL", imageURL)
+
+  console.log(emailUpdate);
+  console.log(fullnameUpdate);
+
+
+    con.query("update Customer1 set image=? where EmailId=?", [imageURL, emailId], (err, result) =>{
+      if(err) throw console.err;
+    });
+
   console.log(emailId, emailUpdate, fullnameUpdate, phonenumberUpdate)
     if (fullnameUpdate !== "") {
       const updateAlias = "update Customer1 set CustomerName=? where EmailId=?";
-      con.query(updateAlias, [fullnameUpdate, emailUpdate], (err, result) => {
+      con.query(updateAlias, [fullnameUpdate, emailId], (err, result) => {
         if (err) throw err;
         //console.log(result);
+       
       });
     }
   
     if (phonenumberUpdate !== "") {
       const updateAlias = "update Customer1 set PhoneNumber=? where EmailId=?";
-      con.query(updateAlias, [phonenumberUpdate, emailUpdate], (err, result) => {
+      con.query(updateAlias, [phonenumberUpdate, emailId], (err, result) => {
         if (err) throw err;
+        
         // console.l(result);
       });
     }
-  
 //     if (cityUpdate !== "") {
 //     const getCustomerId = "select CustomerID from customer where EmailId=?";
 //     var result1 = 

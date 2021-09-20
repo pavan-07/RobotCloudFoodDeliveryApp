@@ -42,10 +42,11 @@ app.use("/uber-eats/api", Restaurant)
 
 // app.get("/UserProfile", (req, res) => {
 
-//     con.query("Select * from customer where CustomerId=1", (err, result, fields) => {
+//     con.query("Select * from Customer1 where CustomerId=1", (err, result, fields) => {
 //         if(err) throw err;
 //         console.log(err);
 //         res.send(result);
+//         console.log("hello")
 //     })
 //     console.log("hello")
 // })

@@ -9,9 +9,9 @@ import avatar from '../../images/img_avatar2.png'
 import logo from '../../images/UberEATS.png'
 import backendServer from '../../Config'
 
+// const val = localStorage.getItem("currentUser")
 
-
-
+//console.log(val)
 
 const UserProfile = () =>{
     const [email, getEmail] = useState('');
@@ -20,6 +20,7 @@ const UserProfile = () =>{
   const [city, getCity] = useState('');
   const [state, getState] = useState('');
   const [zipcode, getZipcode] = useState('');
+  const [imageURL, getimageURL] = useState('')
 
   const [file, setFile] = useState('');
   const [emailUpdate, setEmail] = useState('');
@@ -35,32 +36,36 @@ const UserProfile = () =>{
 
   console.log(fullname);
 
-  const updateProfile = () => {
+  const updateProfile = async () => {
     const data = new FormData();
-     data.append('name', 'file_name.jpg');
-    data.append('file', "file_name.jpg");
-    const uploadConfig = {
-      headers: {
-          "content-type": "multipart/form-data"
-      }
-  };
+     data.append('image', image);
+    // data.append('file', "file_name.jpg");
+  //   const uploadConfig = {
+  //     headers: {
+  //         "content-type": "multipart/form-data"
+  //     }
+  // };
     let url = `${backendServer}/image/user`
    // axios.defaults.headers.common.authorization = localStorage.getItem('token');
    
    
+   //console.log(val)
    
-   axios.post(url, data, uploadConfig).then((res) => {
-      setImage(res.data.imagepath);
+   const imageResponse = await axios.post(url, data); 
+      setImageUrl(imageResponse.data.imageUrl);
       // history.push('/profile');
-    });
+    
+
     axios.post(`${backendServer}/UserProfile`, {
+    
         email: email,
        emailUpdate:emailUpdate,
         fullnameUpdate: fullnameUpdate,
         phonenumberUpdate:phonenumberUpdate,
         cityUpdate:cityUpdate,
         stateUpdate:stateUpdate,
-        zipcodeUpdate:zipcode
+        zipcodeUpdate:zipcode,
+        imageUrl: imageResponse.data.imageUrl
       })
       .then((response) => {
         console.log(response);
@@ -70,9 +75,11 @@ const UserProfile = () =>{
 
 
   useEffect(async () => {
-   // axios.defaults.headers.common.authorization = localStorage.getItem('token');
+  //  axios.defaults.headers.common.authorization = localStorage.getItem("currentUser");
     //const getURL = `${backendServer}/profile/${userid}`;
-    const response = await axios.get(`${backendServer}/UserProfile`);
+    const val = localStorage.getItem("currentUser");
+    console.log(val)
+    const response = await axios.get(`${backendServer}/UserProfile/User`, { params: { email: val } });
     
    console.log(response)
    // setImage(response.data[0].image);
@@ -80,6 +87,7 @@ const UserProfile = () =>{
     getEmail(response.data[0].EmailId);
     getFullname(response.data[0].CustomerName);
     getPhonenumber(response.data[0].PhoneNumber)
+    getimageURL(response.data[0].image);
    // console.log(dbemail);
    
   }, []);
@@ -108,7 +116,7 @@ const imageup = (event)=>{
 				<div class="user-avatar">
 					{/* <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" /> */}
                     
-                    <Image className="main myImage" src={imageUrl} height={100} width={100}/>
+                    <Image className="main myImage" src={imageURL} height={100} width={100}/>
                     <br></br>
                     
             <input
