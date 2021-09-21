@@ -31,4 +31,32 @@ router.post("/RegisterUser", (req, res) => {
 }
 )
 
+router.post("/RegisterUser/Restaurant", (req, res) => {
+    const username = req.body.RestaurantName;
+    const useremail = req.body.useremail;
+    const userpassword = req.body.userpassword;
+    const Restaurantid = uuid.v1();
+    console.log(Restaurantid, username, useremail, userpassword)
+
+//     var users = {"Restaurantid": Restaurantid,
+//     "username": req.body.username,
+// "useremail": req.body.useremail,
+// "userpassword": req.body.userpassword}
+ const query1 = "insert INTO restaurant(RestaurantId, RestaurantName,RestaurantEmail, RestaurantPassword) VALUES ( ?, ?, ?, ?)";
+    con.query(query1, [Restaurantid, username, useremail, userpassword], (err, result, fields) => {
+        if(err){
+            console.log(err);
+            if (err.code === 'ER_DUP_ENTRY') {
+                res.status(400).send({error:"Email Id is already registered"});
+            }else{
+                res.status(500).send({error:'Unknow internal server error'});
+            }
+        }else{
+            res.send(result);
+    }
+   
+}
+)
+})
+
 module.exports = router;

@@ -5,12 +5,15 @@ import Dashboard from './Dashboard.js';
 import UserProfile from './Profile/UserProfile.js';
 
 
+
 const Home = () => {
     return (
         <>
             <Login />
             <Dashboard />
             <UserProfile />
+            {/* <RestaurantRegister />
+            <RestaurantLogin /> */}
             {/* <LandingPage /> */}
         </>
     )

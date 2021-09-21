@@ -11,6 +11,7 @@ import newlogo from '../images/UberEATS.png';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link as RouterLink } from 'react-router-dom';
 import LandingPage from './LandingPage';
+import RestaurantRegisterUser from './RestaurantResigter';
 import {
     ListItemIcon,
     ListItem,
@@ -84,12 +85,12 @@ const menuItems = [
     {
         listIcon: <Home />,
         listText: 'Create Business Account',
-        listPath: 'RegisterRestaurant/'
+        listPath: '/RestaurantRegister'
     },
     {
         listIcon: <Home />,
         listText: 'Sign in for Business Account',
-        listPath: '/LandingPage'
+        listPath: '/RestaurantLogin'
     },
 ]
 const styleimg = {

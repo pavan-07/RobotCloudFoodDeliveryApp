@@ -8,24 +8,20 @@ import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from './../Config'
 import { useHistory } from 'react-router-dom';
-import { Row, Col, Alert } from 'react-bootstrap';
 
-const LandingPage = () => {
+
+const RestaurantLogin = () => {
   const history = useHistory();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [alert, setAlert] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const login = () => {
-    Axios.post(`${backendServer}/LandingPage`,
+    Axios.post(`${backendServer}/RestaurantUser`,
       { useremail: email, userpassword: password }
     ).then((response) => {
       console.log(response)
-      history.push('./Restaurant')
-    })
-      .catch((err) => {
-        setAlert(err)
-      })
+      history.push('./RestaurantDashboard')
+    });
 
     //    return email.length > 0 && password.length > 0;
   }
@@ -33,11 +29,11 @@ const LandingPage = () => {
   console.log(email)
 
   useEffect(async () => {
-    localStorage.setItem('currentUser', email);
+    localStorage.setItem('currentRestaurantUser', email);
   }, [email]);
 
   const value = useState(async () => {
-    localStorage.getItem('currentUser')
+    localStorage.getItem('currentRestaurantUser')
   });
   console.log("curr user", value)
 
@@ -58,7 +54,8 @@ const LandingPage = () => {
     lineheight: '36px',
     fontfamily: 'UberMoveText-Medium,Helvetica,sans-serif',
     marginbottom: '36px',
-    textalign: 'left'
+    textalign: 'left',
+    width: 'max-content'
   }
   const stylebutton = {
     backgroundPosition: 'center',
@@ -78,7 +75,7 @@ const LandingPage = () => {
 
           <h2 style={textstyle}>Welcome Back</h2>
           <br></br>
-          <h6 style={textstyle}>Please Sign In with your E-mail</h6>
+          <h6 style={textstyle}>Please Sign In & open your Restaurant to Customer's </h6>
           <br></br>
           <Form.Group size="lg" controlId="email">
             <Form.Label>Email</Form.Label>
@@ -101,12 +98,10 @@ const LandingPage = () => {
           <Button block size="lg" type="submit" onClick={() => login()} style={styleimg} disabled={!validateForm()}>
             Login
           </Button>
-          {alert.length > 0 && < Alert variant="danger" > {alert} </Alert>}
-
         </Form>
       </div>
     </>
   )
 }
 
-export default LandingPage;
+export default RestaurantLogin;

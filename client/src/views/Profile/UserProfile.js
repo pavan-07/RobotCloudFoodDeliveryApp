@@ -200,7 +200,7 @@ const imageup = (event)=>{
 				<div class="text-right">
 					{/* //<button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>  */}
                     
-					<button type="button" id="submit" name="submit" class="btn btn-primary" onClick={()=>updateProfile()}>Update</button>
+					<button type="submit" id="submit" name="submit" class="btn btn-primary" onClick={()=>updateProfile()}>Update</button>
 				</div>
 			</div>
 		</div>
