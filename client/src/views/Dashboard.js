@@ -19,6 +19,7 @@ import Food9 from '../images/Food9.jpeg';
 import Food10 from '../images/Food10.jpeg';
 //import Typed  from 'react-typed';
 import avatar from '../images/avatar.svg';
+import Login from './Login'
 
 // CSS styles
 const useStyles = makeStyles(theme => ({
@@ -77,6 +78,8 @@ const Dashboard = () => {
         }
     }
     return (
+        <>
+        <Login />
         <Box component='div' className={classes.container}>
             <Grid container justify="center">
             <div class='container-fluid' >  
@@ -169,6 +172,7 @@ const Dashboard = () => {
                     </div>  
             </Grid>
         </Box>
+        </>
     )
 }
 

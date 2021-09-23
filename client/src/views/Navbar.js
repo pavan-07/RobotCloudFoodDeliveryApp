@@ -132,17 +132,17 @@ const menuItems = [
   {
     listIcon: <Home />,
     listText: 'SignUp',
-    listPath: '/Register'
+    listPath: '/customer/Register'
   },
   {
     listIcon: <Home />,
     listText: 'Create Business Account',
-    listPath: 'RegisterRestaurant/'
+    listPath: '/RegisterRestaurant/'
   },
   {
     listIcon: <Home />,
     listText: 'Sign in for Business Account',
-    listPath: '/LandingPage'
+    listPath: '/RestaurantLogin'
   },
 ]
 const styleimg = {

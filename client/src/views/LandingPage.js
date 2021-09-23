@@ -1,9 +1,9 @@
-import Login from './Login.js';
+import Login from './Login';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import react, { useState, useEffect } from "react";
 import '../images/style.css';
-import Axios from 'axios';
+import axios from 'axios';
 import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from './../Config'
@@ -17,11 +17,11 @@ const LandingPage = () => {
   const [alert, setAlert] = useState('');
 
   const login = () => {
-    Axios.post(`${backendServer}/LandingPage`,
+    axios.post(`${backendServer}/LandingPage`,
       { useremail: email, userpassword: password }
     ).then((response) => {
       console.log(response)
-      history.push('./Restaurant')
+      history.push('./RestaurantView')
     })
       .catch((err) => {
         setAlert(err)
@@ -33,7 +33,7 @@ const LandingPage = () => {
   console.log(email)
 
   useEffect(async () => {
-    localStorage.setItem('currentUser', email);
+    sessionStorage.setItem('currentUser', email);
   }, [email]);
 
   const value = useState(async () => {

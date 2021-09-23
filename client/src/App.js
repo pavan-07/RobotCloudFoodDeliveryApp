@@ -1,37 +1,40 @@
 import React from "react"
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Login from './views/Login'
-import Home from './views/';
+
+import Home from './views/Dashboard'
 import LandingPage from "./views/LandingPage";
-import { Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Register from "./views/Register";
 import UserProfile from "./views/Profile/UserProfile";
-import Restaurant from "./views/Restaurant/Restaurant"
-import Navbar from "././views/Navbar"
+
 import RestaurantRegister from './views/RestaurantResigter'
 import RestaurantLogin from "./views/RestaurantLogin";
-import RestaurantDashboard from "./views/Dashboard/RestaurantDashboard";
-import RestaurantMenu from "./views/Restaurant/Menu"
+import RestaurantDashboard from "./views/Dashboards/RestaurantDashboard";
+import RestaurantMenu from "./views/Restaurant/RestaurantMenu"
+import {BrowserRouter as Router} from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import RestaurantView from "./views/Restaurant/RestaurantView";
+import AddDish from './views/Dashboards/AddDish'
+
 
 const App = () => {
     return (
-        <>
-            <CssBaseline />
+        <div>
+            {/* <CssBaseline /> */}
             {/* <Login /> */}
             <Route exact path="/" component={Home}></Route>
-            <Route path="/LandingPage" component={LandingPage}></Route>
-            <Route path="/Register" component={Register}></Route>
-            <Route path="/UserProfile" component={UserProfile}></Route>
-            <Route path="/Restaurant" component={Restaurant}></Route>
-            <Route path="/RestaurantRegister" component={RestaurantRegister}></Route>
-            <Route path="/RestaurantLogin" component={RestaurantLogin}></Route>
-            <Route Path="/RestaurantDashboard" component={RestaurantDashboard}></Route>
-            <Route Path="/RestaurantMenu" component={RestaurantMenu}></Route>
+            <Route exact path="/LandingPage" component={LandingPage}></Route>
+            <Route exact path="/Register" component={Register}></Route>
+            <Route exact path="/RestaurantRegister" component={RestaurantRegister}></Route>
+            <Route exact path="/RestaurantLogin" component={RestaurantLogin}></Route>
+            
+            <Route exact path="/UserProfile" component={UserProfile}></Route>
+            <Route exact path="/RestaurantView" component={RestaurantView}></Route>
+            <Route exact path="/RestaurantMenu" component={RestaurantMenu}></Route>
+            <Route  path="/RestaurantDashboard" component={RestaurantDashboard}></Route>
+            <Route path="/AddDish" component = {AddDish}></Route>
 
-            <Route path="/Navbar" component={Navbar}></Route>
-
-
-        </>
+        </div>
     );
 }
 

@@ -13,11 +13,12 @@ const  RegisterUser  = require("./routes/RegisterUser");
 const con = require("./connections/Dbconnection").connect
 const  imageStore  = require("./routes/imageStore");
 const Restaurant = require("./routes/Restaurant");
-
+const Dishes = require("./routes/Dishes")
 
 const app = express();
 
 app.use(express.json())
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 //app.use("/",imagestore)
@@ -33,11 +34,12 @@ var corsOptions = {
 // })
 
 app.use("/uber-eats/api",LandingPage)
-app.use("/uber-eats/api",RegisterUser)
+app.use("/uber-eats/api", RegisterUser)
 app.use("/uber-eats/api",UserProfile)
 app.use("/uber-eats/api",imageStore)
 app.use("/uber-eats/api", Restaurant)
 
+app.use("/uber-eats/api", Dishes)
 
 
 // app.get("/UserProfile", (req, res) => {
@@ -50,12 +52,6 @@ app.use("/uber-eats/api", Restaurant)
 //     })
 //     console.log("hello")
 // })
-
-
-
-
-  
-
 
 const PORT = process.env.PORT || 3001;
 

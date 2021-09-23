@@ -1,9 +1,9 @@
-import Login from './Login.js';
+import Login from './Login';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
 import '../images/style.css';
-import Axios from 'axios';
+import axios from 'axios';
 import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from '../Config'
@@ -17,11 +17,11 @@ const RestaurantRegister = () => {
     const [password, setPassword] = useState("");
 
     const Register = () => {
-        Axios.post(`${backendServer}/RegisterUser/Restaurant`,
+        axios.post(`${backendServer}/RegisterUser/Restaurant`,
             { RestaurantName: RestaurantName, useremail: email, userpassword: password }
         ).then((response) => {
             console.log(response)
-            history.push('./RestaurantLogin')
+            history.push('/RestaurantLogin')
         });
 
         //    return email.length > 0&& password.length > 0;

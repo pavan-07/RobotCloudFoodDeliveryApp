@@ -1,4 +1,4 @@
-import Login from '../Login.js';
+import Login from '../Login';
 import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router';
@@ -33,6 +33,7 @@ const UserProfile = () =>{
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
+  const history = useHistory();
 
   console.log(fullname);
 
@@ -46,10 +47,6 @@ const UserProfile = () =>{
   //     }
   // };
     let url = `${backendServer}/image/user`
-   // axios.defaults.headers.common.authorization = localStorage.getItem('token');
-   
-   
-   //console.log(val)
    
    const imageResponse = await axios.post(url, data); 
       setImageUrl(imageResponse.data.imageUrl);
@@ -69,25 +66,26 @@ const UserProfile = () =>{
       })
       .then((response) => {
         console.log(response);
-
+      history.push("/UserProfile")
       });
   };
 
 
   useEffect(async () => {
-  //  axios.defaults.headers.common.authorization = localStorage.getItem("currentUser");
-    //const getURL = `${backendServer}/profile/${userid}`;
-    const val = localStorage.getItem("currentUser");
+  
+    const val = sessionStorage.getItem("currentUser");
     console.log(val)
     const response = await axios.get(`${backendServer}/UserProfile/User`, { params: { email: val } });
     
-   console.log(response)
+   console.log("user profile", response.data[0].EmailId)
    // setImage(response.data[0].image);
   //  const dbemail = response.data[0].EmailId;
+  if(val){
     getEmail(response.data[0].EmailId);
     getFullname(response.data[0].CustomerName);
     getPhonenumber(response.data[0].PhoneNumber)
     getimageURL(response.data[0].image);
+  }
    // console.log(dbemail);
    
   }, []);

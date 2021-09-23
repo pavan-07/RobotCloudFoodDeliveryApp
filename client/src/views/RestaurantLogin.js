@@ -1,9 +1,9 @@
-import Login from './Login.js';
+import Login from './Login';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import react, { useState, useEffect } from "react";
 import '../images/style.css';
-import Axios from 'axios';
+import axios from 'axios';
 import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from './../Config'
@@ -16,12 +16,16 @@ const RestaurantLogin = () => {
   const [password, setPassword] = useState("");
 
   const login = () => {
-    Axios.post(`${backendServer}/RestaurantUser`,
+    axios.post(`${backendServer}/RestaurantUser`,
       { useremail: email, userpassword: password }
     ).then((response) => {
-      console.log(response)
-      history.push('./RestaurantDashboard')
-    });
+      console.log("Restaurant Login", response.data[0].RestaurantId)
+       localStorage.setItem("RestaurantId",  response.data[0].RestaurantId)
+      history.push('/RestaurantDashboard')
+    })
+      .catch((err) => {
+        alert(err)
+      })
 
     //    return email.length > 0 && password.length > 0;
   }
@@ -43,6 +47,16 @@ const RestaurantLogin = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
+    // axios.post(`${backendServer}/RestaurantUser`,
+    //   { useremail: email, userpassword: password }
+    // ).then((response) => {
+    //   console.log(response)
+    //   localStorage.setItem("RestaurantId", response.data.id)
+    //   history.push('/RestaurantDashboard')
+    // })
+    //   .catch((err) => {
+    //     alert(err)
+    //   })
 
   }
   const styleimg = {

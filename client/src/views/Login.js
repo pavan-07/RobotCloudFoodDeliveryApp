@@ -11,7 +11,7 @@ import newlogo from '../images/UberEATS.png';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link as RouterLink } from 'react-router-dom';
 import LandingPage from './LandingPage';
-import RestaurantRegisterUser from './RestaurantResigter';
+
 import {
     ListItemIcon,
     ListItem,
@@ -139,8 +139,7 @@ const Login = ()=> {
         <Toolbar>
         <MobileeRightMenuSlider open = { state.left }
         onClose = { toggleSlider('left', false) }
-        anchor = 'left' > { sideList('left') } </MobileeRightMenuSlider> <
-        IconButton onClick = { toggleSlider('left', true) } >
+        anchor = 'left' > { sideList('left') } </MobileeRightMenuSlider> <IconButton onClick = { toggleSlider('left', true) } >
         <DehazeIcon style = {
             { color: 'white' } }/>
          </IconButton>

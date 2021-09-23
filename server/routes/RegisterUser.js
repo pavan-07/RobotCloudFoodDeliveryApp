@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const uuid = require("uuid");
 const con = require("../connections/Dbconnection")
-
+const bcrypt = require("bcrypt");
 
 router.post("/RegisterUser", (req, res) => {
     const username = req.body.username;
@@ -31,19 +31,17 @@ router.post("/RegisterUser", (req, res) => {
 }
 )
 
-router.post("/RegisterUser/Restaurant", (req, res) => {
+router.post("/RegisterUser/Restaurant", async (req, res) => {
     const username = req.body.RestaurantName;
     const useremail = req.body.useremail;
     const userpassword = req.body.userpassword;
     const Restaurantid = uuid.v1();
     console.log(Restaurantid, username, useremail, userpassword)
 
-//     var users = {"Restaurantid": Restaurantid,
-//     "username": req.body.username,
-// "useremail": req.body.useremail,
-// "userpassword": req.body.userpassword}
+    encryptedPass = await bcrypt.hash(userpassword,10);
+
  const query1 = "insert INTO restaurant(RestaurantId, RestaurantName,RestaurantEmail, RestaurantPassword) VALUES ( ?, ?, ?, ?)";
-    con.query(query1, [Restaurantid, username, useremail, userpassword], (err, result, fields) => {
+    con.query(query1, [Restaurantid, username, useremail, encryptedPass], (err, result, fields) => {
         if(err){
             console.log(err);
             if (err.code === 'ER_DUP_ENTRY') {

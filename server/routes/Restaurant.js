@@ -5,15 +5,20 @@ const con = require("../connections/Dbconnection")
 
 router.get("/Restaurant", (req, res) => {
 
-    
-    
-
     con.query("select * from restaurant ", (err, result, fields) => {
         console.log(err);
         console.log(result, fields)
         res.send(result);
     })
   
+})
+
+router.get("/dishes", (req, res) =>{
+    const name = req.query.name;
+    const query = "select * from dishes where RestaurantId = ?";
+    con.query(query, [RestaurantId], (err, result, fields) =>{
+        res.status(200).send(result);
+    })
 })
 
 module.exports = router;

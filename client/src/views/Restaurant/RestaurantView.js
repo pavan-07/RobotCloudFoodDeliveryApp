@@ -36,7 +36,7 @@ const styleimg = {
   width: '25'
 }
 
-const Restaurant = ()=> {
+const RestaurantView = ()=> {
   const history = useHistory();
 
   const [name, getName] = useState('');
@@ -112,9 +112,9 @@ console.log("Hello", filteredPosts);
   // }
 
   return (
-    <>
+    <div>
       <Navbar handleSearch = {onSearch} />
-      <ThemeProvider theme={theme}>
+      {/* <ThemeProvider theme={theme}> */}
         <CssBaseline />
         <main>
           {/* Hero unit */}
@@ -192,8 +192,8 @@ console.log("Hello", filteredPosts);
           </Container>
         </main>
 
-      </ThemeProvider>
-    </>
+      {/* </ThemeProvider> */}
+    </div>
   );
 }
-export default Restaurant;
+export default RestaurantView;
