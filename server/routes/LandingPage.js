@@ -14,7 +14,7 @@ router.post("/LandingPage", (req, res) => {
         const newHashedPassword = bcrypt.hash(result[0].CustomerPassword, salt)
         const isValid = bcrypt.compare(userpassword, newHashedPassword)
         if (isValid) {
-            res.status(200).send({ message: "Login success" })
+            res.status(200).send(result)
         }
         else {
             res.status(400).send({ message: "Invalid Credentials" })

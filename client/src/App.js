@@ -15,7 +15,8 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import RestaurantView from "./views/Restaurant/RestaurantView";
 import AddDish from './views/Dashboards/AddDish'
-
+import CustomerDashboard from './views/Dashboards/CustomerDashboard'
+import Favourites from './views/Restaurant/Favourites'
 
 const App = () => {
     return (
@@ -33,6 +34,9 @@ const App = () => {
             <Route exact path="/RestaurantMenu" component={RestaurantMenu}></Route>
             <Route  path="/RestaurantDashboard" component={RestaurantDashboard}></Route>
             <Route path="/AddDish" component = {AddDish}></Route>
+            <Route path="/CustomerDashboard" component = {CustomerDashboard}></Route>
+            <Route path="/Favourites" component = {Favourites}></Route>
+
 
         </div>
     );

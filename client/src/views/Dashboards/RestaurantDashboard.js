@@ -23,6 +23,7 @@ import Navbar from '../Navbar';
 import { NearMeTwoTone } from '@material-ui/icons';
 import props from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const theme = createTheme();
 
@@ -63,8 +64,13 @@ function RestaurantDashboard() {
   };
 
 
-  const EditDish = (event)=>{
+  const EditDish = (EditDishId)=>{
+
+    localStorage.setItem("editDish", EditDishId)
+    console.log("Dish id is here", EditDishId)
+    if(EditDishId != ''){
     history.push("/AddDish")
+    }
    
   };
  
@@ -99,7 +105,9 @@ function RestaurantDashboard() {
 
  
   const onAddDishes = (event) => {
+   
     history.push("/AddDish")
+    
   }
 
   return (
@@ -175,7 +183,7 @@ function RestaurantDashboard() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small" onClick={() => EditDish()}>Edit Dish</Button>
+                      <Button size="small" onClick={() => EditDish(card.DishId)}>Edit Dish</Button>
                       {/* onClick={() => goToDetails(name)} */}
                       {/* <Button size="small">Edit</Button> */}
                     </CardActions>

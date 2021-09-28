@@ -14,6 +14,7 @@ const con = require("./connections/Dbconnection").connect
 const  imageStore  = require("./routes/imageStore");
 const Restaurant = require("./routes/Restaurant");
 const Dishes = require("./routes/Dishes")
+const Favourites = require("./routes/Favourites")
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use("/uber-eats/api",imageStore)
 app.use("/uber-eats/api", Restaurant)
 
 app.use("/uber-eats/api", Dishes)
+app.use("/uber-eats/api", Favourites)
 
 
 // app.get("/UserProfile", (req, res) => {

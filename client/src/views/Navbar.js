@@ -11,6 +11,7 @@ import newlogo from '../images/UberEATS.png';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link as RouterLink } from 'react-router-dom';
 import LandingPage from './LandingPage';
+
 import {
   ListItemIcon,
   ListItem,
@@ -36,6 +37,9 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import props from 'prop-types';
 import PropTypes from 'prop-types';
+import FaceIcon from '@mui/icons-material/Face';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -125,24 +129,24 @@ const routepage = [
 
 const menuItems = [
   {
-    listIcon: <Home />,
-    listText: 'Sign In',
-    listPath: '/LandingPage'
+    listIcon: <FaceIcon />,
+    listText: 'Profile',
+    listPath: '/UserProfile'
   },
   {
     listIcon: <Home />,
-    listText: 'SignUp',
+    listText: 'Orders',
     listPath: '/customer/Register'
   },
   {
-    listIcon: <Home />,
-    listText: 'Create Business Account',
+    listIcon: <ShoppingCartIcon />,
+    listText: 'Cart',
     listPath: '/RegisterRestaurant/'
   },
   {
-    listIcon: <Home />,
-    listText: 'Sign in for Business Account',
-    listPath: '/RestaurantLogin'
+    listIcon: <FavoriteIcon />,
+    listText: 'Favourites',
+    listPath: '/Favourites'
   },
 ]
 const styleimg = {

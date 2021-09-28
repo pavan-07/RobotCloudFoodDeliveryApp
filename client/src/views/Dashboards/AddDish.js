@@ -32,7 +32,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 const theme = createTheme();
@@ -46,6 +46,14 @@ const AddDish = () => {
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState('');
     const [type, setType] = useState('');
+
+    const [image1, getImage1] = useState('');
+    const [imageUrl1, getImageUrl1] = useState('');
+     const [name1, setName1] = useState('');
+    const [desc1, getDesc1] = useState('');
+    const [category1, getCategory1] = useState('');
+    const [price1, getPrice1] = useState('');
+    const [type1, getType1] = useState('');
 
     const history = useHistory();
     const handleSubmit = async (event) => {
@@ -61,6 +69,7 @@ const AddDish = () => {
         }
 
         const restaurantId = localStorage.getItem('RestaurantId');
+        const dishid = localStorage.getItem('editDish');
 
         let payload = {
             restaurantId: restaurantId,
@@ -72,7 +81,7 @@ const AddDish = () => {
             imageUrl: imageUrl
         }
 
-        axios.post(`${backendServer}/restaurant/dishes`, payload)
+        axios.post(`${backendServer}/restaurant/dishes/${dishid}`, payload)
             .then(response => {
                 console.log(response)
                 sessionStorage.setItem("DishId", response.data.dishId)
@@ -85,18 +94,18 @@ const AddDish = () => {
     };
 
     useEffect(async () => {
-        const DishId = sessionStorage.getItem('DishId');
-        if (DishId) {
+        const DishId = localStorage.getItem('editDish');
+        if (DishId != '') {
             const response = await axios.get(`${backendServer}/dishes/${DishId}`);
             console.log("Dishes response", response)
             const dish = response.data;
-            setName(dish.DishName);
-            setDesc(dish.DishDesc);
-            setCategory(dish.DishCategory);
-            setType(dish.DishType);
-            setPrice(dish.Price);
-            setImageUrl(dish.ImageUrl);
-        }
+            setName1(dish.DishName);
+        //     setDesc(dish.DishDesc);
+        //     setCategory(dish.DishCategory);
+        //     setType(dish.DishType);
+        //     setPrice(dish.Price);
+        //     setImageUrl(dish.ImageUrl);
+         }
     }, [])
 
     const onPhotoChange = (event) => {
@@ -114,6 +123,20 @@ const AddDish = () => {
     const imageStyle = {
         "margin-left": '45%'
     }
+
+
+    // useEffect(async () => {
+
+    //     const DishId = localStorage.getItem("editDish");
+    //     console.log("Add Dish Page", DishId)
+    //     if (DishId != '') {
+    //          const response = await axios.get(`${backendServer}/dishes/${DishId}`);
+    //         console.log("Dishes response", name)
+    //           const dish = response.data;
+    //         setName(dish.DishName);
+
+    //     }
+    // }, [])
 
 
     return (

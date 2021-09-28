@@ -9,6 +9,11 @@ import wavebg from '../images/layered-waves.svg';
 import backendServer from './../Config'
 import { useHistory } from 'react-router-dom';
 import { Row, Col, Alert } from 'react-bootstrap';
+import {useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import logged from '../actions';
+
+
 
 const LandingPage = () => {
   const history = useHistory();
@@ -16,12 +21,16 @@ const LandingPage = () => {
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState('');
 
+  const dispatch = useDispatch();
+
   const login = () => {
     axios.post(`${backendServer}/LandingPage`,
       { useremail: email, userpassword: password }
     ).then((response) => {
+      localStorage.setItem("CustomerID", response.data[0].CustomerId)
       console.log(response)
-      history.push('./RestaurantView')
+      dispatch(logged(response.data[0].CustomerName, response.data[0].EmailId, response.data[0].CustomerPassword ));
+      history.push('/RestaurantView')
     })
       .catch((err) => {
         setAlert(err)

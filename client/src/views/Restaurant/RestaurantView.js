@@ -23,7 +23,8 @@ import Navbar from '../Navbar';
 import { NearMeTwoTone } from '@material-ui/icons';
 import props from 'prop-types';
 import { useHistory } from 'react-router-dom';
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -99,17 +100,23 @@ console.log("Hello", filteredPosts);
     getImageUrl(response.data[2].Image)
   }, []);
 
-  // props.handleSearch = () => {
-  //   axios.get(`${backendServer}/Restaurant/?RestauntName=${record}`)
-  //     .then(response => {
-  //       setSearch(response.data);
-  //     });
-  // }
+ const addFavourite =  (cardId) =>{
+   //console.log("came to favourite", cardId)
 
-  // function goToDetails(name) {
-  //   localStorage.setItem("restaurantName", name)
-  //   history.push('/Menu')
-  // }
+   const RestaurantId = cardId;
+   const CustomerId = localStorage.getItem("CustomerID")
+   console.log("came to favourite", cardId, CustomerId )
+
+
+   const response = axios.post(`${backendServer}/favourites/${CustomerId}/${RestaurantId}`
+   ).then((response) =>{
+     console.log(response)
+   })
+   .catch((err) =>{
+     console.log(err)
+   })
+
+ }
 
   return (
     <div>
@@ -181,7 +188,7 @@ console.log("Hello", filteredPosts);
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small">View</Button>   
+                      <Button size="small">View</Button> <FavoriteBorderIcon onClick={() =>addFavourite(card.RestaurantId)} style={{ color: "red" }} /> 
                        {/* onClick={() => goToDetails(name)} */}
                       {/* <Button size="small">Edit</Button> */}
                     </CardActions>

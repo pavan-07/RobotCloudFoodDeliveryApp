@@ -21,14 +21,16 @@ const UserProfile = () =>{
   const [state, getState] = useState('');
   const [zipcode, getZipcode] = useState('');
   const [imageURL, getimageURL] = useState('')
+  const [country, getCountry] = useState('')
 
   const [file, setFile] = useState('');
   const [emailUpdate, setEmail] = useState('');
   const [fullnameUpdate, setFullname] = useState('');
   const [phonenumberUpdate, setPhonenumber] = useState('');
-  const [cityUpdate, setCity] = useState('');
+  const [cityUpdate, setCityUpdate] = useState('');
   const [stateUpdate, setState] = useState('');
   const [zipcodeUpdate, setZipcode] = useState('');
+  const [countryUpdate, setCountryUpdate] = useState('')
   
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -52,8 +54,9 @@ const UserProfile = () =>{
       setImageUrl(imageResponse.data.imageUrl);
       // history.push('/profile');
     
+      console.log("city",cityUpdate)
 
-    axios.post(`${backendServer}/UserProfile`, {
+   const response= await axios.post(`${backendServer}/UserProfile`, {
     
         email: email,
        emailUpdate:emailUpdate,
@@ -62,11 +65,14 @@ const UserProfile = () =>{
         cityUpdate:cityUpdate,
         stateUpdate:stateUpdate,
         zipcodeUpdate:zipcode,
-        imageUrl: imageResponse.data.imageUrl
+        imageUrl: imageResponse.data.imageUrl,
+        countryUpdate: countryUpdate
       })
       .then((response) => {
         console.log(response);
-      history.push("/UserProfile")
+        setFile("");
+        window.location.reload(false);
+      history.push("./UserProfile")
       });
   };
 
@@ -85,6 +91,8 @@ const UserProfile = () =>{
     getFullname(response.data[0].CustomerName);
     getPhonenumber(response.data[0].PhoneNumber)
     getimageURL(response.data[0].image);
+    getCity(response.data[0].City)
+    getCountry(response.data[0].Country)
   }
    // console.log(dbemail);
    
@@ -125,8 +133,8 @@ const imageup = (event)=>{
             />
 				</div>
                 <br></br>
-				<h6 class="user-name">Name: {fullname}</h6>
-				<h6 class="user-email">Email ID : {email}</h6>
+				<h6 class="user-name">{fullname}</h6>
+				<h6 class="user-email"> {email}</h6>
 			</div>
 			<div class="about">
 				<h5>About</h5>
@@ -173,22 +181,35 @@ const imageup = (event)=>{
 				<h6 class="mt-3 mb-2 text-primary">Address</h6>
 			</div>
 			
+      {/* country */}
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="city">Country</label>
+					<input type="name" class="form-control" id="city" placeholder={country} onChange={(e) => {
+                      setCountryUpdate(e.currentTarget.value);
+                    }}/>
+				</div>
+			</div>
+
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
 					<label for="city">City</label>
-					<input type="name" class="form-control" id="ciTy" placeholder={city} />
+					<input type="name" class="form-control" id="city" placeholder={city} onChange={(e) => {
+                      setCityUpdate(e.currentTarget.value);
+                    }}/>
 				</div>
 			</div>
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
 					<label for="sTate">State</label>
-					<input type="text" class="form-control" id="sTate" placeholder={state}/>
+					<input type="text" class="form-control" id="state" placeholder={state}/>
 				</div>
 			</div>
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 				<div class="form-group">
 					<label for="zIp">Zip Code</label>
-					<input type="text" class="form-control" id="zIp" placeholder={zipcode}/>
+					<input type="text" class="form-control" id="zip" placeholder={zipcode}/>
 				</div>
 			</div>
 		</div>
