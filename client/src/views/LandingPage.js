@@ -29,7 +29,7 @@ const LandingPage = () => {
     ).then((response) => {
       localStorage.setItem("CustomerID", response.data[0].CustomerId)
       console.log(response)
-      dispatch(logged(response.data[0].CustomerName, response.data[0].EmailId, response.data[0].CustomerPassword ));
+      dispatch(logged(response.data[0].CustomerName, response.data[0].EmailId ));
       history.push('/RestaurantView')
     })
       .catch((err) => {

@@ -7,16 +7,16 @@ import {
     Box
 } from '@material-ui/core';
 import Carousel from 'react-bootstrap/Carousel';
-import Food1 from '../images/Food1.jpeg';
-import Food2 from '../images/Food2.jpeg';
-import Food3 from '../images/Food3.jpeg';
-import Food4 from '../images/Food4.jpeg';
-import Food5 from '../images/Food5.jpeg';
-import Food6 from '../images/Food6.jpeg';
-import Food7 from '../images/Food7.jpeg';
-import Food8 from '../images/Food8.jpeg';
-import Food9 from '../images/Food9.jpeg';
-import Food10 from '../images/Food10.jpeg';
+import Food1 from '../images/Food1.jpg';
+import Food2 from '../images/Food2.jpg';
+import Food3 from '../images/Food3.jpg';
+import Food4 from '../images/Food4.jpg';
+import Food5 from '../images/Food5.jpg';
+import Food6 from '../images/Food6.jpg';
+import Food7 from '../images/Food7.jpg';
+import Food8 from '../images/Food8.jpg';
+import Food9 from '../images/Food9.jpg';
+import Food10 from '../images/Food10.jpg';
 //import Typed  from 'react-typed';
 import avatar from '../images/avatar.svg';
 import Login from './Login'

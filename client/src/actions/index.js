@@ -1,22 +1,22 @@
-const logged = (username, useremail, password) => ({
+const logged = (username, useremail) => ({
     type: 'LOGIN',
     payload: username,
-    email: useremail,
-    password: password,
+    email: useremail
+   
   });
   
-  const signed = (username, useremail, password) => ({
+  const signed = (username, useremail) => ({
     type: 'SIGNIN',
     payload: username,
-    email: useremail,
-    password: password,
+    email: useremail
+   
   });
   
-  const logout = (username, useremail, password) => ({
+  const logout = (username, useremail) => ({
     type: 'LOGOUT',
     payload: username,
-    email: useremail,
-    password: password,
+    email: useremail
+   
   });
   export { signed, logout, logged as default };
   

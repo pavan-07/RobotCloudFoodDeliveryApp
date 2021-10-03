@@ -8,9 +8,14 @@ import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from '../Config'
 import { useHistory } from 'react-router-dom';
+import {useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import {signed} from '../actions';
+
 
 const RegisterUser = () =>{
   const history = useHistory();
+  const dispatch = useDispatch();
 
     const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
@@ -21,6 +26,8 @@ const RegisterUser = () =>{
         {username: username, useremail:email, userpassword: password }
         ).then((response)=>{
             console.log(response)
+      dispatch(signed(username, email ));
+
       history.push('/RestaurantView')
 
         });

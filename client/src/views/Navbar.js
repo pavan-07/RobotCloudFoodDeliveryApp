@@ -12,6 +12,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link as RouterLink } from 'react-router-dom';
 import LandingPage from './LandingPage';
 
+import { DropdownMenu } from 'react-bootstrap-dropdown-menu';
+
 import {
   ListItemIcon,
   ListItem,
@@ -19,10 +21,12 @@ import {
   Divider,
   Avatar,
   List,
-  Box
+  Box,
+  InputLabel
 } from '@material-ui/core';
 import {
   ArrowBack,
+  HistorySharp,
   Home
 } from '@material-ui/icons';
 import DehazeIcon from '@material-ui/icons/Dehaze';
@@ -41,9 +45,29 @@ import FaceIcon from '@mui/icons-material/Face';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
+import { Select, FormControl } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Grid from "@material-ui/core/Grid";
+import Stack from '@mui/material/Stack';
+import FormGroup from '@mui/material/FormGroup';
+
+import LogoutIcon from '@mui/icons-material/Logout';
+import { logout } from '../actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+  },
+  FormControl: {
+    minWidth: 130,
+    alignText: 'center'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -71,6 +95,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //   search bar styles
+
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -119,6 +145,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 // search bar style ends
 
 
+//const dispatch = useDispatch();
+
+
 const routepage = [
   {
     listIcon: <LandingPage />,
@@ -126,6 +155,13 @@ const routepage = [
     listPath: '/LandingPage'
   }
 ]
+
+const logout1 = () => {
+
+  useDispatch.dispatch(logout('', ''));
+
+
+}
 
 const menuItems = [
   {
@@ -148,7 +184,16 @@ const menuItems = [
     listText: 'Favourites',
     listPath: '/Favourites'
   },
+  {
+    listIcon: <LogoutIcon onClick={logout1} />,
+    listText: 'Logout',
+    listPath: '/'
+  }
 ]
+
+
+
+
 const styleimg = {
   display: 'block',
   margin: 'auto'
@@ -161,9 +206,15 @@ const stylebg = {
 const Navbar = (props) => {
   const classes = useStyles();
 
+  const history = useHistory();
+
+
+
   const [state, setState] = useState({
     left: false
   })
+
+  const [value, setValue] = useState('');
 
   const toggleSlider = (slider, open) => () => {
     setState({ ...state, [slider]: open });
@@ -189,6 +240,35 @@ const Navbar = (props) => {
     </Box>
   );
 
+
+  // dropdown 
+  // const [value, setValue] = useState('')
+
+  // const handleBtnChange = e => setValue(e.target.value)
+
+  //console.log("filter Value", value)
+
+
+
+  const [state1, setState1] = React.useState({
+
+    checkedB: true
+  });
+
+  const handleChange = name => event => {
+    setState1({ ...state, [name]: event.target.checked });
+  };
+
+  console.log(state1)
+
+
+  const [age, setAge] = React.useState('');
+
+  const handleProfileChange = (event) => {
+    setAge(event.target.value);
+    console.log(age)
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -205,8 +285,56 @@ const Navbar = (props) => {
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             <a href="/"><img src={logo} width={'120'} height={'80'} alt='' /> </a>
+
+
+
           </Typography>
           {/* {flag ?<>  */}
+
+          <FormGroup row style={{
+            display: "flex",
+            paddingRight: "650px",
+            justifyContent: "center"
+          }}  >
+            <FormControlLabel
+              control={
+                <>
+                </>
+              }
+
+              label="Pick-Up"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={state.checkedB}
+                  onChange={handleChange('checkedB')}
+                  value="checkedB"
+                  color="Black"
+                />
+              }
+              label="Delivery"
+            />
+          </FormGroup>
+
+
+          <FormControl className={classes.FormControl} style={{
+            display: "flex",
+            paddingRight: "20px",
+            justifyContent: "center",
+          }}>
+            <InputLabel>Order Filter</InputLabel>
+            <Select value={value} onChange={(event) => props.handleBtnChange(event)}>
+            <MenuItem value="All Orders">All Orders</MenuItem>
+              <MenuItem value="Order Received">Order Received</MenuItem>
+              <MenuItem value="Preparing">Preparing</MenuItem>
+              <MenuItem value="On The Way">On The Way</MenuItem>
+              <MenuItem value="Delivered">Delivered</MenuItem>
+              <MenuItem value="Pick Up Ready">Pick Up Ready</MenuItem>
+              <MenuItem value="Picked Up">Picked Up</MenuItem>
+            </Select>
+          </FormControl>
+
 
           <Search
             onChange={(event) => props.handleSearch(event)}
@@ -220,7 +348,24 @@ const Navbar = (props) => {
             />
           </Search>
           {/* <Button color="inherit" component={RouterLink} to="/LandingPage">Login</Button> */}
-          <a href="/UserProfile"> <AccountCircle ></AccountCircle></a>
+          {/* <a href="/UserProfile"> */}
+          <InputLabel id="demo-simple-select-label"></InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={age}
+            label="Age"
+            onChange={handleProfileChange}
+          >
+            <MenuItem value={10}>Profile</MenuItem>
+            <MenuItem value={20}>Logout</MenuItem>
+            
+          </Select>
+          <AccountCircle >
+
+
+          </AccountCircle>
+          {/* </a> */}
           {/* </> : <></>} */}
         </Toolbar>
       </AppBar>
@@ -229,7 +374,8 @@ const Navbar = (props) => {
 }
 
 Navbar.propTypes = {
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onSelect: PropTypes.func
 }
 
 export default Navbar;

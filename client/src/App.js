@@ -17,6 +17,8 @@ import RestaurantView from "./views/Restaurant/RestaurantView";
 import AddDish from './views/Dashboards/AddDish'
 import CustomerDashboard from './views/Dashboards/CustomerDashboard'
 import Favourites from './views/Restaurant/Favourites'
+import CustomerOrder from './views/Orders/CustomerOrder'
+import RestaurantOrder from './views/Orders/RestaurantOrder'
 
 const App = () => {
     return (
@@ -36,6 +38,9 @@ const App = () => {
             <Route path="/AddDish" component = {AddDish}></Route>
             <Route path="/CustomerDashboard" component = {CustomerDashboard}></Route>
             <Route path="/Favourites" component = {Favourites}></Route>
+            <Route path="/CustomerOrder" component = {CustomerOrder}></Route>
+            <Route path="/RestaurantOrder" component = {RestaurantOrder}></Route>
+
 
 
         </div>

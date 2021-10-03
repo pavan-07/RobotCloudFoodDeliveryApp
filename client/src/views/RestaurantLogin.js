@@ -8,12 +8,18 @@ import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from './../Config'
 import { useHistory } from 'react-router-dom';
+import {useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import  logged  from '../actions';
+
 
 
 const RestaurantLogin = () => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
 
   const login = () => {
     axios.post(`${backendServer}/RestaurantUser`,
@@ -21,6 +27,7 @@ const RestaurantLogin = () => {
     ).then((response) => {
       console.log("Restaurant Login", response.data[0].RestaurantId)
        localStorage.setItem("RestaurantId",  response.data[0].RestaurantId)
+      dispatch(logged(response.data[0].RestaurantEmail, response.data[0].RestaurantName ));
       history.push('/RestaurantDashboard')
     })
       .catch((err) => {

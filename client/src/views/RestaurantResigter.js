@@ -8,6 +8,10 @@ import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from '../Config'
 import { useHistory } from 'react-router-dom';
+import {useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import {signed} from '../actions';
+
 
 
 const RestaurantRegister = () => {
@@ -15,13 +19,16 @@ const RestaurantRegister = () => {
     const [RestaurantName, setRestaurantName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
 
     const Register = () => {
         axios.post(`${backendServer}/RegisterUser/Restaurant`,
             { RestaurantName: RestaurantName, useremail: email, userpassword: password }
         ).then((response) => {
             console.log(response)
-            history.push('/RestaurantLogin')
+      dispatch(signed(RestaurantName, email ));
+            history.push('/RestaurantDashboard')
         });
 
         //    return email.length > 0&& password.length > 0;
