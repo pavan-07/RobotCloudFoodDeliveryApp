@@ -32,6 +32,12 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 
 const theme = createTheme();
@@ -125,6 +131,17 @@ const CustomerOrder = () => {
         // console.log(OrderResponse[0].DeliveryType)
     }, [])
 
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
     return (
         <>
             <Navbar handleBtnChange={onChange} />
@@ -162,13 +179,39 @@ const CustomerOrder = () => {
                                                 component="span"
                                                 variant="body2"
                                                 color="text.primary"
+                                                paddingRight= "15px"
                                             >
-                                                {card.LastUpdatedTime}
+                                             {card.LastUpdatedTime}
                                             </Typography>
                                             {" ", card.OrderStatus}
                                         </React.Fragment>
                                     }
                                 />
+
+<Button variant="outlined" onClick={handleClickOpen}>
+        View Receipt
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending anonymous
+            location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
                             </ListItem>
 

@@ -253,10 +253,14 @@ const Navbar = (props) => {
   const [state1, setState1] = React.useState({
 
     checkedB: true
+
+
   });
 
   const handleChange = name => event => {
-    setState1({ ...state, [name]: event.target.checked });
+    setState1({ ...state1, [name]: event.target.checked });
+
+    console.log("statevalue", state1.checkedB)
   };
 
   console.log(state1)
@@ -317,29 +321,43 @@ const Navbar = (props) => {
             />
           </FormGroup>
 
+          {!state1.checkedB ?
 
-          <FormControl className={classes.FormControl} style={{
-            display: "flex",
-            paddingRight: "20px",
-            justifyContent: "center",
-          }}>
-            <InputLabel>Order Filter</InputLabel>
-            <Select value={value} onChange={(event) => props.handleBtnChange(event)}>
-            <MenuItem value="All Orders">All Orders</MenuItem>
-              <MenuItem value="Order Received">Order Received</MenuItem>
-              <MenuItem value="Preparing">Preparing</MenuItem>
-              <MenuItem value="On The Way">On The Way</MenuItem>
-              <MenuItem value="Delivered">Delivered</MenuItem>
-              <MenuItem value="Pick Up Ready">Pick Up Ready</MenuItem>
-              <MenuItem value="Picked Up">Picked Up</MenuItem>
-            </Select>
-          </FormControl>
+            <FormControl className={classes.FormControl} style={{
+              display: "flex",
+              paddingRight: "20px",
+              justifyContent: "center",
+            }}>
+              <InputLabel>Order Filter</InputLabel>
+              <Select value={value} onChange={(event) => props.handleBtnChange(event)}>
+                <MenuItem value="All Orders">All Orders</MenuItem>
+                <MenuItem value="Order Received">Order Received</MenuItem>
+                <MenuItem value="Preparing">Preparing</MenuItem>
+                <MenuItem value="Pick Up Ready">Pick Up Ready</MenuItem>
+                <MenuItem value="Picked Up">Picked Up</MenuItem>
+              </Select>
+            </FormControl>
 
+            : (<FormControl className={classes.FormControl} style={{
+              display: "flex",
+              paddingRight: "20px",
+              justifyContent: "center",
+            }}>
+              <InputLabel>Order Filter</InputLabel>
+              <Select value={value} onChange={(event) => props.handleBtnChange(event)}>
+                <MenuItem value="All Orders">All Orders</MenuItem>
+                <MenuItem value="Order Received">Order Received</MenuItem>
+                <MenuItem value="Preparing">Preparing</MenuItem>
+                <MenuItem value="On The Way">On The Way</MenuItem>
+                <MenuItem value="Delivered">Delivered</MenuItem>
+
+              </Select>
+            </FormControl>)}
 
           <Search
             onChange={(event) => props.handleSearch(event)}
           >
-            <SearchIconWrapper>
+            <SearchIconWrapper >
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
@@ -349,7 +367,7 @@ const Navbar = (props) => {
           </Search>
           {/* <Button color="inherit" component={RouterLink} to="/LandingPage">Login</Button> */}
           {/* <a href="/UserProfile"> */}
-          <InputLabel id="demo-simple-select-label"></InputLabel>
+          {/* <InputLabel id="demo-simple-select-label"></InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -359,12 +377,9 @@ const Navbar = (props) => {
           >
             <MenuItem value={10}>Profile</MenuItem>
             <MenuItem value={20}>Logout</MenuItem>
-            
-          </Select>
-          <AccountCircle >
 
-
-          </AccountCircle>
+          </Select> */}
+        <a href="/UserProfile"> <AccountCircle ></AccountCircle></a>
           {/* </a> */}
           {/* </> : <></>} */}
         </Toolbar>

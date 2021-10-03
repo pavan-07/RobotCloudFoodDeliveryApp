@@ -43,6 +43,19 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+import { styled } from '@mui/material/styles';
+
+import  { tableCellClasses } from '@mui/material/TableCell';
+
 const theme = createTheme();
 
 const RestaurantOrder = () => {
@@ -67,10 +80,13 @@ const RestaurantOrder = () => {
             setOrderResponse(value)
         }
         else if (event.target.value != '') {
-            let filter_1 = value.filter(res => res.RestaurantName != null && res.OrderStatus == event.target.value);
+            let filter_1 = value.filter(res => res.CustomerName != null && res.OrderStatus == event.target.value);
             console.log("orderFil", filter_1)
             setOrderResponse(filter_1);
 
+        }
+        else{
+            <h1>No Pending Orders</h1>
         }
 
     }
@@ -139,6 +155,26 @@ const RestaurantOrder = () => {
 
     //pop up code
 
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+          backgroundColor: theme.palette.common.black,
+          color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+          fontSize: 14,
+        },
+      }));
+      
+      const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+          backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+          border: 0,
+        },
+      }));
+
     return (
         <>
             <Navbar handleBtnChange={onChange1} />
@@ -155,12 +191,75 @@ const RestaurantOrder = () => {
                 alignItems: "center"
             }}>
 
+<TableContainer component={Paper} style={{ width: 1000 }}>
+      <Table  aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Customer Name</StyledTableCell>
+            <StyledTableCell align="center">Order ID</StyledTableCell>
+            <StyledTableCell align="center">Last Updated Time</StyledTableCell>
+            <StyledTableCell align="center">Total Amount</StyledTableCell>
+            <StyledTableCell align="center">Order Status</StyledTableCell>
+            <StyledTableCell align="center">Edit Order Status</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {OrderResponse.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+              <Avatar align="center" alt="Remy Sharp" src={row.image} ></Avatar>{row.CustomerName}
+              </TableCell>
+              <TableCell align="center">{row.OrderId}</TableCell>
+              <TableCell align="center">{row.LastUpdatedTime}</TableCell>
+              <TableCell align="center">{row.TotalAmount}</TableCell>
+              <TableCell align="center">{row.OrderStatus}</TableCell>
+              <TableCell align="center"> 
+              <Button onClick={handleClickOpen(row.OrderId)}>Edit Order</Button>
+                            <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
+                                <DialogTitle>Update Order Status</DialogTitle>
+                                <DialogContent>
+                                    <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                                        <FormControl sx={{ m: 1, minWidth: 420 }}>
+                                            <InputLabel htmlFor="demo-dialog-native">Status</InputLabel>
+                                            <Select
+                                                native
+                                                value={age}
+                                                onChange={handleChange( row.OrderId)}
+                                                input={<OutlinedInput label="Age" id="demo-dialog-native" />}
+                                            >
+
+                                                <option aria-label="None" value="" />
+                                                <option value="Order Received">Order Received</option>
+                                                <option value="Preparing">Preparing</option>
+                                                <option value="On The Way">On The Way</option>
+                                                <option value="Delivered">Delivered</option>
+                                                <option value="Pick Up Ready">Pick Up Ready</option>
+                                                <option value="Picked Up">Picked Up</option>
+
+                                            </Select>
+                                        </FormControl>
+
+                                    </Box>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose}>Cancel</Button>
+                                    <Button onClick={handleClose}>Ok</Button>
+                                </DialogActions>
+                            </Dialog>
+              </TableCell>
+              
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
 
 
 
-                <List sx={{ width: '100%', maxWidth: 660, bgcolor: 'background.paper' }}>
-
-                    {/* {OrderResponse.map((card, index) => { */}
+                {/* <List sx={{ width: '100%', maxWidth: 660, bgcolor: 'background.paper' }}>
                    {OrderResponse.map((card) => ( 
                     <>
                         <ListItem key={3} alignItems="flex-center" >
@@ -223,7 +322,7 @@ const RestaurantOrder = () => {
                      ))} 
 
 
-                </List>
+                </List> */}
 
 
 
