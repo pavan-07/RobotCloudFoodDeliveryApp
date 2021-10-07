@@ -16,6 +16,7 @@ const Restaurant = require("./routes/Restaurant");
 const Dishes = require("./routes/Dishes")
 const Favourites = require("./routes/Favourites")
 const Orders = require("./routes/Orders")
+const DeliveryAddress = require("./routes/DeliveryAddress")
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/uber-eats/api", Restaurant)
 app.use("/uber-eats/api", Dishes)
 app.use("/uber-eats/api", Favourites)
 app.use("/uber-eats/api", Orders)
+app.use("/uber-eats/api", DeliveryAddress)
 
 
 // app.get("/UserProfile", (req, res) => {

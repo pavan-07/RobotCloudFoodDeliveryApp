@@ -78,9 +78,11 @@ const RestaurantOrder = () => {
 
             console.log("else", event.target.value)
             setOrderResponse(value)
+            console.log(value)
         }
         else if (event.target.value != '') {
-            let filter_1 = value.filter(res => res.CustomerName != null && res.OrderStatus == event.target.value);
+            console.log(OrderResponse.OrderStatus, typeof(value.OrderStatus), typeof(event.target.value))
+            let filter_1 = value.filter(res => res.OrderStatus != null && res.OrderStatus == event.target.value);
             console.log("orderFil", filter_1)
             setOrderResponse(filter_1);
 

@@ -99,12 +99,12 @@ const AddDish = () => {
             const response = await axios.get(`${backendServer}/dishes/${DishId}`);
             console.log("Dishes response", response)
             const dish = response.data;
-            setName1(dish.DishName);
-        //     setDesc(dish.DishDesc);
-        //     setCategory(dish.DishCategory);
-        //     setType(dish.DishType);
-        //     setPrice(dish.Price);
-        //     setImageUrl(dish.ImageUrl);
+            setName(dish.DishName);
+             setDesc(dish.DishDesc);
+             setCategory(dish.DishCategory);
+             setType(dish.DishType);
+             setPrice(dish.Price);
+             setImageUrl(dish.DishImage);
          }
     }, [])
 

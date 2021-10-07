@@ -3,15 +3,34 @@ const router = require("express").Router();
 //const bcrypt = require("bcrypt")
 const con = require("../connections/Dbconnection")
 
-router.get("/Restaurant", (req, res) => {
+router.get("/Restaurants", (req, res) => {
 
-    con.query("select * from restaurant ", (err, result, fields) => {
+    const country = req.query.country;
+    const city = req.query.city;
+    console.log(req.query, typeof(country));
+    let queryCondition='';
+    if(country.length >0)
+      queryCondition = queryCondition + " where Country = ? ";
+    if(city.length >0)
+      queryCondition = queryCondition + "and City = ?";
+    const query = "Select * FROM restaurant" + queryCondition;
+
+    console.log(query)
+
+    con.query(query,[country,city], (err, result, fields) => {
         console.log(err);
         console.log(result, fields)
         res.send(result);
     })
   
 })
+
+router.get("/Restaurant",function(req,resp){
+    const query = "select * from restaurant";
+    con.query(query, (err,results,fields)=>{
+        resp.status(200).send(results);
+    });
+});
 
 router.get("/dishes", (req, res) =>{
     const name = req.query.name;

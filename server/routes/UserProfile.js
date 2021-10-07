@@ -95,5 +95,44 @@ router.post("/UserProfile", function (req, res) {
   });
 
 
+  router.get("/restaurant/:id",(req,resp)=>{
+    
+    const restaurantId = req.params.id;
+    let query = "SELECT * from restaurant where RestaurantId = ?";
+    con.query(query,[restaurantId],function(err,results, fields){
+        if(err){
+            resp.status(500).send({error:'Unknow internal server error'});
+        }else{
+            resp.status(200).send(results[0]);
+        }
+    });
+});
+
+router.post("/restaurant/:id",async(req,resp)=>{
+  restaurantId = req.params.id;
+  restaurantName = req.body.name;
+  restaurantId = req.params.id;
+  country = req.body.country;
+  state = req.body.state;
+  city = req.body.city;
+  pincode = req.body.pincode;
+  fromHrs = req.body.fromHrs;
+  toHrs = req.body.toHrs;
+  phone = req.body.phone;
+  desc = req.body.desc;
+  imageUrl = req.body.imageUrl;
+
+  let query = "UPDATE restaurant SET RestaurantName = ?, RestaurantDesc = ?, Country = ?, City = ?, State = ?, PhoneNumber = ?,Pincode = ?, WorkHrsFrom = ? , WorkHrsTo = ?, Image = ? where RestaurantId = ?";
+  con.query(query,[restaurantName,desc,country,city,state,phone,pincode,fromHrs,toHrs,imageUrl,restaurantId],function(err,results, fields){
+      if(err){
+        console.log(err)
+          resp.status(500).send({error:'Unknow internal server error'});
+
+      }else{
+          resp.send({message : "updated"});
+      }
+  });
+});
+
 
 module.exports = router;

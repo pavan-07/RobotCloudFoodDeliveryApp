@@ -11,8 +11,8 @@ router.post("/LandingPage", (req, res) => {
 
     con.query("SELECT * FROM Customer1 where EmailId = ? ", [useremail], async (err, result, fields) => {
         const salt = await bcrypt.genSalt(15)
-        const newHashedPassword = bcrypt.hash(result[0].CustomerPassword, salt)
-        const isValid = bcrypt.compare(userpassword, newHashedPassword)
+       // const newHashedPassword = bcrypt.hash(result[0].CustomerPassword, salt)
+        const isValid = bcrypt.compare(userpassword, result[0].CustomerPassword)
         if (isValid) {
             res.status(200).send(result)
         }

@@ -23,109 +23,228 @@ import { useHistory } from 'react-router-dom';
 //import NavigationBar from '../Navigation/NavigationBar';
 import Navbar from '../Navbar';
 
-  
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import NavbarCustomer from '../NavbarCustomer';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const theme = createTheme();
 
 export default function CustomerDashBoard() {
 
- const [cards,setCards] = useState([]);
- const history = useHistory();
- 
- useEffect(async () => {
-    const country = sessionStorage.getItem('country');
-    const state = sessionStorage.getItem('state');
-    const url = `${backendServer}/restaurant`;
-    const response = await axios.get(url,{params:{country : country, state: state}});
+  const [cards, setCards] = useState([]);
+  const [initialLoad, setInitialLoad] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [tempCart, setTempCart] = useState([]);
+  const history = useHistory();
+  const [openCart, setOpenCart] = useState(false);
+  const [multipleOrderDialog, setMultipleOrderDialog] = useState(false);
+  const [currentRestaurant, setCurrentRestaurant] = useState('');
+  const [newRestaurant, setNewRestaurant] = useState('');
+
+  const CurrRestaurantDetails = JSON.parse(sessionStorage.getItem('currentRestaurantDetails'))
+    console.log("sesson Value",CurrRestaurantDetails)
+
+  useEffect(async () => {
+    const restaurantId = sessionStorage.getItem('currentRestaurant');
+    console.log("RestaurantId", restaurantId)
+
+  
+
+    const url = `${backendServer}/Restaurant/dishes/${restaurantId}`;
+    const response = await axios.get(url);
+    console.log(response)
     //getGroups(response.data);
-    setCards(response.data)
+    setCards(response.data);
+    setInitialLoad(response.data);
     //setselectGroups(array);
-    console.log(cards);
-    //console.log("store is",store.getState());
+    let currentCart = JSON.parse(sessionStorage.getItem('currentCart')) || [];
+    setCart(currentCart);
+    console.log(cart);
+    // console.log("store is", store.getState());
 
   }, []);
 
-  const onAddDishes = (event)=>{
-      history.push("/restaurant/dishes")
+  const persistCartOnSession = (cart) => {
+    sessionStorage.setItem('currentCart', JSON.stringify(cart));
+  }
+
+  const onNewOrder = () => {
+    setCart(tempCart);
+    setCurrentRestaurant(newRestaurant);
+    setNewRestaurant('');
+    persistCartOnSession(tempCart);
+    setMultipleOrderDialog(false);
+  }
+
+  const onAddToCart = (dish) => {
+    if (cart.length != 0 && dish.RestaurantId != cart[0].RestaurantId) {
+      console.log(cart)
+      console.log(dish)
+      setCurrentRestaurant(cart[0].RestaurantName);
+      setNewRestaurant(dish.RestaurantName);
+      setTempCart([{ ...dish, Quantity: 1 }]);
+      setMultipleOrderDialog(true);
+      return;
+    }
+    let newCart = [...cart, dish];
+    let index = cart.findIndex(item => item.DishId === dish.DishId);
+    if (index == -1) {
+      newCart = [...cart, { ...dish, Quantity: 1 }]
+    } else {
+      newCart = [...cart];
+      newCart[index].Quantity++;
+    }
+    setCart(newCart);
+    persistCartOnSession(newCart);
+    console.log("cart", newCart);
+  }
+
+  const onRemoveFromCart = (dish) => {
+    let newCart = [...cart]
+    let index = newCart.findIndex(item => item.DishId === dish.DishId)
+    if (index == -1)
+      return;
+    newCart[index].Quantity > 1 ? newCart[index].Quantity-- : newCart.splice(index, 1);
+    if (newCart.length == 0)
+      setOpenCart(false);
+    setCart(newCart)
+    persistCartOnSession(newCart);
+    console.log("cart", newCart);
+  }
+
+  const onSearch = (type, searchTerm) => {
+    if (searchTerm == '') {
+      setCards(initialLoad);
+      return;
+    } else {
+      switch (type) {
+        case "Dishes":
+          let dfilter = initialLoad.filter(card => card.DishName != null && card.DishName.toLowerCase().includes(searchTerm.toLowerCase()));
+          setCards(dfilter);
+          break;
+        case "Dish Type":
+          let tfilter = initialLoad.filter(card => card.DishType != null && card.DishType.toLowerCase().includes(searchTerm.toLowerCase()));
+          setCards(tfilter);
+          break;
+        case "Category":
+          let cfilter = initialLoad.filter(card => card.Category != null && card.Category.toLowerCase().includes(searchTerm.toLowerCase()));
+          setCards(cfilter);
+          break;
+      }
+    }
   }
 
   return (
-      <>
-    <Navbar />
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <main>
-        {/* Hero unit */}
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Welcome back!
-            </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              You deserve the best food in the city
-            </Typography>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button variant="contained" onClick={()=>onAddDishes()}>View Cart</Button>
-              {/* <Button variant="outlined">View Orders</Button> */}
-            </Stack>
-          </Container>
-        </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {console.log(cards)}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card.DishId} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image={card.ImageUrl}
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
+    <>
+      <NavbarCustomer onSearch={onSearch}/>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <main>
+          {/* Hero unit */}
+          <Box
+            sx={{
+              bgcolor: 'background.paper',
+              pt: 8,
+              pb: 6,
+            }}
+          >
+            <Container maxWidth="sm">
+              <Typography
+                component="h1"
+                variant="h2"
+                align="center"
+                color="text.primary"
+                gutterBottom
+              >
+                Welcome back!
+              </Typography>
+              <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                You deserve the best food in the city
+              </Typography>
+              <Stack
+                sx={{ pt: 4 }}
+                direction="row"
+                spacing={2}
+                justifyContent="center"
+              >
+                <Button variant="contained" >View Cart</Button>
+                {/* onClick={()=>onAddDishes()} */}
+                {/* <Button variant="outlined">View Orders</Button> */}
+              </Stack>
+            </Container>
+          </Box>
+          <Container sx={{ py: 8 }} maxWidth="md">
+            {console.log(cards)}
+            <Grid container spacing={4}>
+              {cards.map((card) => (
+                <Grid item key={card.DishId} xs={6} sm={3} md={4}>
+                  <Card
+                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                  >
+                    <CardMedia
+                      component="img"
+                      sx={{
+                        // 16:9
+                        pt: '00.25%',
+                      }}
+                      image={card.DishImage}
+                      alt="random"
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography gutterBottom variant="h5" component="h2">
                         {card.DishName}
-                    </Typography>
-                    <Typography>
+                      </Typography>
+                      <Typography>
                         {card.DishDesc}
-                    </Typography>
-                    <Typography>
+                      </Typography>
+                      <Typography>
                         {card.Price}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Add</Button>
-                    <Button size="small">Remove</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-    </ThemeProvider>
+                      </Typography>
+                      <Typography>
+                        Category: {card.Category}
+                      </Typography>
+                      <Typography>
+                        Type: {card.DishType}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" onClick={() => { onAddToCart(card) }}><AddTaskIcon></AddTaskIcon></Button>
+                      <Button size="small" onClick={() => { onRemoveFromCart(card) }}><DeleteOutlineIcon></DeleteOutlineIcon></Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </main>
+        {/* dialog */}
+
+        <div>
+          <Dialog open={multipleOrderDialog} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Create new order?</DialogTitle>
+            <DialogContent>
+              <Typography variant="body2">Your cart already contains orders from other restaurant .
+                Would you like to clear the cart and start new order to add items from {CurrRestaurantDetails.RestaurantName}</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => onNewOrder()} variant="contained" color="primary">
+                New Order
+              </Button>
+              <Button onClick={() => setMultipleOrderDialog(false)} variant="contained" color="primary">
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+
+
+        {/* dialog */}
+      </ThemeProvider>
     </>
   );
 }

@@ -29,6 +29,9 @@ const LandingPage = () => {
     ).then((response) => {
       localStorage.setItem("CustomerID", response.data[0].CustomerId)
       console.log(response)
+      sessionStorage.setItem('country',response.data.Country);
+      sessionStorage.setItem('city',response.data.City);
+
       dispatch(logged(response.data[0].CustomerName, response.data[0].EmailId ));
       history.push('/RestaurantView')
     })

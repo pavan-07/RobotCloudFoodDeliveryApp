@@ -24,6 +24,7 @@ import { NearMeTwoTone } from '@material-ui/icons';
 import props from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import EditIcon from '@mui/icons-material/Edit';
 
 const theme = createTheme();
 
@@ -85,7 +86,7 @@ function RestaurantDashboard() {
     const restaurantId = localStorage.getItem('RestaurantId');
     console.log("use effect");
 
-    const response = await axios.get(`${backendServer}/Restaurant/${restaurantId}/dishes`);
+    const response = await axios.get(`${backendServer}/Restaurant/dishes/${restaurantId}`);
 
     setCards(response.data);
     console.log("Hello cards", cards)
@@ -108,6 +109,10 @@ function RestaurantDashboard() {
    
     history.push("/AddDish")
     
+  }
+
+  const ViewOrders = () =>{
+    history.push("/RestaurantOrder")
   }
 
   return (
@@ -144,7 +149,7 @@ function RestaurantDashboard() {
                 justifyContent="center"
               >
                 <Button variant="contained" onClick={() => onAddDishes()}>Add Dishes</Button>
-                <Button variant="outlined">View Orders</Button>
+                <Button variant="outlined" onClick={ViewOrders}>View Orders</Button>
               </Stack>
             </Container>}
           </Box>
@@ -183,7 +188,7 @@ function RestaurantDashboard() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small" onClick={() => EditDish(card.DishId)}>Edit Dish</Button>
+                      <Button size="small" onClick={() => EditDish(card.DishId)}><EditIcon></EditIcon>Edit</Button>
                       {/* onClick={() => goToDetails(name)} */}
                       {/* <Button size="small">Edit</Button> */}
                     </CardActions>

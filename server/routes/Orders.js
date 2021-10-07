@@ -47,5 +47,67 @@ router.post("/restaurant/Orders/:id1/:id2", function (req, res) {
 })
 
 
+router.post("/orders/customer/:id", function (req, resp) {
+    let orderId = uuidv4();
+    let customerId = req.params.id;
+    let cart = req.body.cart;
+    let Total = req.body.TotalAmt
+    console.log(Total)
+    let addressId = req.body.addressId;
+    let deliverytype = req.body.deliverytype;
+    let restaurantId = req.body.restaurantId;
+    orderId = uuidv4();
+    currentTimeStamp = new Date();
+
+    const orderQuery = "INSERT INTO orders (OrderId, CustomerId, RestaurantId, OrderStatus, DeliveryType, CreatedAt, LastUpdatedTime, TotalAmount, DeliveryAddressId) VALUES (?,?,?,?,?,?,?,?,?)";
+    con.query(orderQuery, [orderId,customerId,restaurantId,"Order Received",deliverytype,currentTimeStamp,currentTimeStamp,Total, addressId], (err, results, fields) => {
+        if (err) {
+            console.log(err)
+            resp.status(500).send({ error: 'Unknown internal server error' });
+        } else {
+            let orderDetails = [];
+            cart.map(
+                item => {
+                    orderDetails.push([
+                        orderId,
+                        item.DishId,
+                        item.Quantity
+                    ]);
+                }
+            );
+            const detailsQuery = "INSERT INTO orderdetails (OrderId, DishId, Quantity) VALUES ?";
+            con.query(detailsQuery, [orderDetails], (err, results, fields) => {
+                if (err) {
+                    console.log(err);
+                    resp.status(500).send({ error: 'Unknown internal server error' });
+                } else {
+                    resp.send({orderId: orderId });
+                }
+            });
+
+        }
+    });
+});
+
+
+router.get("/orders/customer/:id", function (req, res) {
+    const customerId = req.params.id;
+    const query = "SELECT * FROM address as a INNER JOIN orders as o INNER JOIN restaurant as r on r.RestaurantId = o.RestaurantId and o.DeliveryAddressId = a.AddressId where o.CustomerId = ?";
+    //console.log(req);
+    con.query(query, [customerId], (err, results, fields) => {
+        console.log(err);
+        res.status(200).send(results);
+    });
+});
+
+router.get("/orders/:id/items", function (req, res) {
+    const orderId = req.params.id;
+    const query = "SELECT * from orderdetails as o INNER JOIN dishes as d on d.DishId = o.DishId where o.OrderId = ?";
+    //console.log(req);
+    con.query(query, [orderId], (err, results, fields) => {
+        console.log(err);
+        res.status(200).send(results);
+    });
+});
 
 module.exports = router;

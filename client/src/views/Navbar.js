@@ -156,7 +156,8 @@ const routepage = [
   }
 ]
 
-const logout1 = () => {
+function logout1()  {
+  console.log("clicked logout")
 
   useDispatch.dispatch(logout('', ''));
 

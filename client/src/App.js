@@ -19,6 +19,10 @@ import CustomerDashboard from './views/Dashboards/CustomerDashboard'
 import Favourites from './views/Restaurant/Favourites'
 import CustomerOrder from './views/Orders/CustomerOrder'
 import RestaurantOrder from './views/Orders/RestaurantOrder'
+import RestaurantProfile from "./views/Profile/RestaurantProfile";
+import CustomerCheckOut from "./views/Dashboards/CustomerCheckOut";
+import AddressForm from "./views/Dashboards/AddressForm";
+
 
 const App = () => {
     return (
@@ -40,6 +44,9 @@ const App = () => {
             <Route path="/Favourites" component = {Favourites}></Route>
             <Route path="/CustomerOrder" component = {CustomerOrder}></Route>
             <Route path="/RestaurantOrder" component = {RestaurantOrder}></Route>
+            <Route path="/RestaurantProfile" component = {RestaurantProfile}></Route>
+            <Route path="/CustomerCheckOut" component = {CustomerCheckOut}></Route>
+            <Route path="/AddressForm" component = {AddressForm}></Route>
 
 
 
