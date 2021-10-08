@@ -4,10 +4,16 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
-import { useEffect } from 'react';
+import { useEffect, useHistory } from 'react';
 import { useState } from 'react';
 
 export default function Review(props) {
+
+    const history = useHistory();
+
+if(!localStorage.getItem("CustomerID")){
+  history.push("/LandingPage")
+}
 
     const [cart, setCart] = useState([]);
     const [address, setAddress] = useState({

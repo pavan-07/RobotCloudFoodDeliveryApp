@@ -32,6 +32,11 @@ const theme = createMuiTheme({
 
 export default function RestaurantProfile() {
 
+    const history = useHistory();
+  if(!localStorage.getItem("RestaurantId")){
+    history.push("/RestaurantLogin")
+  }
+
     const [image, setImage] = useState('');
     const [imageUrl, setImageUrl] = useState(`${dishlogo}`);
     const [name, setName] = useState('');
@@ -45,7 +50,7 @@ export default function RestaurantProfile() {
     const [pincode, setPincode] = useState('');
     const [restaurantId, setRestaurantId] = useState('');
 
-    const history = useHistory();
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(event.currentTarget);

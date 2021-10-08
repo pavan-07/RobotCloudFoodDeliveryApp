@@ -510,7 +510,12 @@ const Navbar = (props) => {
                     placeholder='Search By'
                     select
                   >
-                    {searchDashBoard.map((option) => (
+                     {props.view === 'customerdashboard' && searchDashBoard.map((option) => (
+                      <MenuItem key={option.key} value={option.value}>
+                        {option.value}
+                      </MenuItem>
+                    ))}
+                    {props.view === 'customerrestaurant' && searchRestaurant.map((option) => (
                       <MenuItem key={option.key} value={option.value}>
                         {option.value}
                       </MenuItem>

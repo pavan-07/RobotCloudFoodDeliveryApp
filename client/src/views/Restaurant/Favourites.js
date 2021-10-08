@@ -33,6 +33,10 @@ const Favourites = () => {
 
     const custId = localStorage.getItem("CustomerID")
 
+    if(!localStorage.getItem("CustomerID")){
+        history.push("/LandingPage")
+    }
+
     const [FavCards, setFavCards] = useState([]);
 
     useEffect(async () => {

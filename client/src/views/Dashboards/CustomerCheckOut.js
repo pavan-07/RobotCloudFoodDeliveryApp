@@ -27,6 +27,12 @@ const steps = ['Review your order', 'Delivery address', 'Place Order'];
 const theme = createTheme();
 
 export default function CustomerCheckOut() {
+
+
+
+if(!localStorage.getItem("CustomerID")){
+  history.push("/LandingPage")
+}
     const [cart, setCart] = useState([]);
     const [activeStep, setActiveStep] = useState(0);
     const [addr1, setAddr1] = useState('');

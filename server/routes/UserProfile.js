@@ -108,6 +108,21 @@ router.post("/UserProfile", function (req, res) {
     });
 });
 
+
+router.get("/customer/:id",(req,resp)=>{
+    
+  const CustomerId = req.params.id;
+  let query = "SELECT * from Customer1 where CustomerId = ?";
+  con.query(query,[CustomerId],function(err,results, fields){
+      if(err){
+          resp.status(500).send({error:'Unknow internal server error'});
+      }else{
+        console.log(results)
+          resp.status(200).send(results);
+      }
+  });
+});
+
 router.post("/restaurant/:id",async(req,resp)=>{
   restaurantId = req.params.id;
   restaurantName = req.body.name;

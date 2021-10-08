@@ -40,6 +40,10 @@ const UserProfile = () => {
 
   console.log(fullname);
 
+  if(!localStorage.getItem("CustomerID")){
+    history.push("/LandingPage")
+  }
+
   const updateProfile = async () => {
     const data = new FormData();
     data.append('image', image);

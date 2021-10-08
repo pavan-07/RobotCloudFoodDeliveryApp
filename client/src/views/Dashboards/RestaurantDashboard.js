@@ -38,6 +38,9 @@ const styleimg = {
 function RestaurantDashboard() {
 
   const history = useHistory();
+  if(!localStorage.getItem("RestaurantId")){
+    history.push("/RestaurantLogin")
+  }
 
   const [cards, setCards] = useState([]);
   //  const [description, getDescription] = useState('');

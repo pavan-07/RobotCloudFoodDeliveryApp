@@ -22,7 +22,7 @@ import RestaurantOrder from './views/Orders/RestaurantOrder'
 import RestaurantProfile from "./views/Profile/RestaurantProfile";
 import CustomerCheckOut from "./views/Dashboards/CustomerCheckOut";
 import AddressForm from "./views/Dashboards/AddressForm";
-
+import RestaurantCustomerView from './views/Profile/RestaurantCustomerView'
 
 const App = () => {
     return (
@@ -47,7 +47,7 @@ const App = () => {
             <Route path="/RestaurantProfile" component = {RestaurantProfile}></Route>
             <Route path="/CustomerCheckOut" component = {CustomerCheckOut}></Route>
             <Route path="/AddressForm" component = {AddressForm}></Route>
-
+            <Route path="/RestaurantCustomerView" component = {RestaurantCustomerView}></Route>
 
 
         </div>

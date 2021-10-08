@@ -52,14 +52,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+
 import { styled } from '@mui/material/styles';
 
 import  { tableCellClasses } from '@mui/material/TableCell';
+
 
 const theme = createTheme();
 
 const RestaurantOrder = () => {
 
+    const history = useHistory();
+
+  if(!localStorage.getItem("RestaurantId")){
+    history.push("/RestaurantLogin")
+  }
     const [OrderResponse, setOrderResponse] = useState([]);
 
     const [searchValue, setSearch] = useState('');
@@ -177,6 +184,12 @@ const RestaurantOrder = () => {
         },
       }));
 
+    const viewCustomer = (ID) =>{
+        
+        sessionStorage.setItem("TempCustomerId", ID)
+        history.push("/RestaurantCustomerView")
+    }
+
     return (
         <>
             <Navbar handleBtnChange={onChange1} />
@@ -198,7 +211,7 @@ const RestaurantOrder = () => {
         <TableHead>
           <TableRow>
             <StyledTableCell>Customer Name</StyledTableCell>
-            <StyledTableCell align="center">Order ID</StyledTableCell>
+            <StyledTableCell align="center">Customer Details</StyledTableCell>
             <StyledTableCell align="center">Last Updated Time</StyledTableCell>
             <StyledTableCell align="center">Total Amount</StyledTableCell>
             <StyledTableCell align="center">Order Status</StyledTableCell>
@@ -214,12 +227,12 @@ const RestaurantOrder = () => {
               <TableCell component="th" scope="row">
               <Avatar align="center" alt="Remy Sharp" src={row.image} ></Avatar>{row.CustomerName}
               </TableCell>
-              <TableCell align="center">{row.OrderId}</TableCell>
+              <TableCell align="center"><Button onClick={() => viewCustomer(row.CustomerId)}>View</Button></TableCell>
               <TableCell align="center">{row.LastUpdatedTime}</TableCell>
               <TableCell align="center">{row.TotalAmount}</TableCell>
               <TableCell align="center">{row.OrderStatus}</TableCell>
               <TableCell align="center"> 
-              <Button onClick={handleClickOpen(row.OrderId)}>Edit Order</Button>
+              <Button onClick={() =>{handleClickOpen(row.OrderId)}}>Edit Order</Button>
                             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
                                 <DialogTitle>Update Order Status</DialogTitle>
                                 <DialogContent>

@@ -36,6 +36,12 @@ const theme = createTheme();
 
 export default function CustomerDashBoard() {
 
+  
+
+if(!localStorage.getItem("CustomerID")){
+  history.push("/LandingPage")
+}
+
   const [cards, setCards] = useState([]);
   const [initialLoad, setInitialLoad] = useState([]);
   const [cart, setCart] = useState([]);
@@ -141,7 +147,7 @@ export default function CustomerDashBoard() {
 
   return (
     <>
-      <NavbarCustomer onSearch={onSearch}/>
+      <NavbarCustomer onSearch={onSearch} view='customerrestaurant'/>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <main>

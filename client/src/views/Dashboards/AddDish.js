@@ -39,6 +39,11 @@ const theme = createTheme();
 
 const AddDish = () => {
 
+    const history = useHistory();
+  if(!localStorage.getItem("RestaurantId")){
+    history.push("/RestaurantLogin")
+  }
+
     const [image, setImage] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [name, setName] = useState('');
@@ -55,7 +60,6 @@ const AddDish = () => {
     const [price1, getPrice1] = useState('');
     const [type1, getType1] = useState('');
 
-    const history = useHistory();
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(event.currentTarget);

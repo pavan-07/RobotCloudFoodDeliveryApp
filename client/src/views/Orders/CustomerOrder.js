@@ -48,6 +48,12 @@ const theme = createTheme();
 
 const CustomerOrder = () => {
 
+  const history = useHistory();
+
+if(!localStorage.getItem("CustomerID")){
+  history.push("/LandingPage")
+}
+
   const [OrderResponse, setOrderResponse] = useState([]);
 
   const [searchValue, setSearch] = useState('');

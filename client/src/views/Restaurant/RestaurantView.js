@@ -40,7 +40,10 @@ const styleimg = {
 const RestaurantView = () => {
   const history = useHistory();
 
- ;
+
+  if(!localStorage.getItem("CustomerID")){
+    history.push("/LandingPage")
+  }
   const [res1, setRes1] = useState([]);
   const [il, setIl] = useState([]);
   //const [res1, getRes1] = useState('');
@@ -139,7 +142,7 @@ const RestaurantView = () => {
 
   return (
     <div>
-      <NavbarCustomer onSearch={onSearch} />
+      <NavbarCustomer onSearch={onSearch} view='customerdashboard' />
       {/* <ThemeProvider theme={theme}> */}
       <CssBaseline />
       <main>

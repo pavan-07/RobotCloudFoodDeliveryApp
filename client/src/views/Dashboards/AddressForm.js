@@ -5,13 +5,19 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
+import { useState, useHistory } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import backendServer from '../../Config';
 
 
 export default function AddressForm(props) {
+
+    const history = useHistory();
+
+if(!localStorage.getItem("CustomerID")){
+  history.push("/LandingPage")
+}
     const [addr1, setAddr1] = useState('');
     const [addr2, setAddr2] = useState('');
     const [city, setCity] = useState('');
