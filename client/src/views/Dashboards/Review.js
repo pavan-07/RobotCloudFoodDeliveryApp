@@ -9,11 +9,11 @@ import { useState } from 'react';
 
 export default function Review(props) {
 
-    const history = useHistory();
+    //const history = useHistory();
 
-if(!localStorage.getItem("CustomerID")){
-  history.push("/LandingPage")
-}
+// if(!localStorage.getItem("CustomerID")){
+//   history.push("/LandingPage")
+// }
 
     const [cart, setCart] = useState([]);
     const [address, setAddress] = useState({

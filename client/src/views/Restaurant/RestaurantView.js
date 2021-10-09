@@ -73,6 +73,7 @@ const RestaurantView = () => {
 
   //get data close
 
+  
 
   const onSearch = (type,searchTerm) => {
 
@@ -85,14 +86,15 @@ const RestaurantView = () => {
        case "Restaurant":
          let rfilter = initialLoad.filter(card => card.RestaurantName != null && card.RestaurantName.toLowerCase().includes(searchTerm.toLowerCase()));
          setCards(rfilter);
+         console.log("InitialLoad", rfilter)
          break;
        case "Location":
-        let lfilter = initialLoad.filter(card => card.RestaurantName != null && card.City.toLowerCase().includes(searchTerm.toLowerCase()));
+         let lfilter = initialLoad.filter(card => card.RestaurantName != null && card.Location.toLowerCase().includes(searchTerm.toLowerCase()));
 
          setCards(lfilter);
          break;
        case "Delivery Type":
-          let tfilter = initialLoad.filter(card => card.RestaurantName != null && card.Mode.toLowerCase().includes(searchTerm.toLowerCase()));
+          let tfilter = initialLoad.filter(card => card.RestaurantName != null && card.DeliveryMode.toLowerCase().includes(searchTerm.toLowerCase()));
           setCards(tfilter);
           break;
        case "Dishes":
@@ -217,9 +219,9 @@ const RestaurantView = () => {
                     <Typography>
                       Location : {card.City}
                     </Typography>
-                    <Typography>
-                      Mode : {card.Mode}
-                    </Typography>
+                    {/* <Typography>
+                      Mode : {card.DeliveryMode}
+                    </Typography> */}
                   </CardContent>
                   <CardActions>
                     <Button size="small" onClick={() => onView(card)}>View</Button> <FavoriteBorderIcon onClick={() => addFavourite(card.RestaurantId)} style={{ color: "red" }} />

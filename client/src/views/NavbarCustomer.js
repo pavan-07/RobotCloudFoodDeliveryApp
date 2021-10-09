@@ -496,7 +496,7 @@ const Navbar = (props) => {
                 />
               </FormGroup> */}
 
-                <Box sx={{ flexGrow: 1 }}  display = "flex" alignItems= 'left'>
+              <Box sx={{ flexGrow: 1 }} display="flex" alignItems='left'>
                 <>
                   <TextField
                     required
@@ -504,13 +504,13 @@ const Navbar = (props) => {
                     name="searchCriteria"
                     label="Search By"
                     value={searchBy}
-                    style={{ width: '50%', textAlign: 'left' , paddingRight: '500px'}}
+                    style={{ width: '30%', textAlign: 'left' }}
                     autoComplete="Search By"
                     onChange={e => { onSearchCriteriaChange(e); }}
                     placeholder='Search By'
                     select
                   >
-                     {props.view === 'customerdashboard' && searchDashBoard.map((option) => (
+                    {props.view === 'customerdashboard' && searchDashBoard.map((option) => (
                       <MenuItem key={option.key} value={option.value}>
                         {option.value}
                       </MenuItem>
@@ -527,7 +527,7 @@ const Navbar = (props) => {
                     ))} */}
 
                   </TextField>
-                  <Search style={{ width: '35%' }} onChange={(event) => props.onSearch(searchBy, event.target.value)}>
+                  <Search style={{ width: '65%' }} onChange={(event) => props.onSearch(searchBy, event.target.value)}>
                     <SearchIconWrapper>
                       <SearchIcon />
                     </SearchIconWrapper>
@@ -540,12 +540,51 @@ const Navbar = (props) => {
                     />
                   </Search>
                 </>
-                </Box>
-             
-          {/* testing */}
+              </Box>
 
-        
-          {/* testing */}
+              {props.view === 'OrderPage' && <>{!state1.checkedB ?
+              
+              
+
+                <FormControl className={classes.FormControl} style={{
+                  display: "flex",
+                  paddingRight: "20px",
+                  justifyContent: "center",
+                }}>
+                  <InputLabel>Order Filter</InputLabel>
+                  <Select value={value} onChange={(event) => props.handleBtnChange(event)}>
+                    <MenuItem value="All Orders">All Orders</MenuItem>
+                    <MenuItem value="Order Received">Order Received</MenuItem>
+                    <MenuItem value="Preparing">Preparing</MenuItem>
+                    <MenuItem value="Pick Up Ready">Pick Up Ready</MenuItem>
+                    <MenuItem value="Picked Up">Picked Up</MenuItem>
+                  </Select>
+                </FormControl>
+
+                : (<FormControl className={classes.FormControl} style={{
+                  display: "flex",
+                  paddingRight: "20px",
+                  justifyContent: "center",
+                }}>
+                  <InputLabel>Order Filter</InputLabel>
+                  <Select value={value} onChange={(event) => props.handleBtnChange(event)}>
+                    <MenuItem value="All Orders">All Orders</MenuItem>
+                    <MenuItem value="Order Received">Order Received</MenuItem>
+                    <MenuItem value="Preparing">Preparing</MenuItem>
+                    <MenuItem value="On The Way">On The Way</MenuItem>
+                    <MenuItem value="Delivered">Delivered</MenuItem>
+
+                  </Select>
+                </FormControl>)
+              }
+              </>
+                
+                }
+
+              {/* testing */}
+
+
+              {/* testing */}
 
               {/* {!state1.checkedB ?
 
@@ -579,7 +618,7 @@ const Navbar = (props) => {
 
                   </Select>
                 </FormControl>)} */}
-               
+
               {/* Filter button */}
 
 
@@ -601,7 +640,7 @@ const Navbar = (props) => {
               <Box sx={{ flexGrow: 1 }} />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
-              <FormControlLabel
+                <FormControlLabel
                   control={
                     <>
                     </>

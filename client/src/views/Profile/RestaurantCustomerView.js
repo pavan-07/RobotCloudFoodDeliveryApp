@@ -24,7 +24,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
-
+import avatar1 from '../../images/avatar.svg'
 
 const theme = createTheme();
 
@@ -32,7 +32,7 @@ const theme = createTheme();
 const RestaurantCustomerView = () => {
     const [cards, setCards] = useState([]);
 
-    const [Image, setImage] = useState('');
+    const [Image, setImage] = useState(`${avatar1}`);
     const [Name, setName] = useState('');
     const [Email, setEmail] = useState('');
     const [Dob, setDob] = useState('');
@@ -52,18 +52,19 @@ const RestaurantCustomerView = () => {
 
         console.log("TempCustomerId", response.data)
         setCards(response.data)
-        setImage(response.data.Image)
-        setEmail(response.data.EmailId)
-        setDob(response.data.DoB)
-        setPhoneNumber(response.data.PhoneNumber)
-        setNickName(response.data.NickName)
-        setCountry(response.data.Country)
-        setCity(response.data.City)
-        setName(response.data.CustomerName)
+        setImage(response.data[0].Image)
+        setEmail(response.data[0].EmailId)
+        setDob(response.data[0].DoB)
+        setPhoneNumber(response.data[0].PhoneNumber)
+        setNickName(response.data[0].NickName)
+        setCountry(response.data[0].Country)
+        setCity(response.data[0].City)
+        setName(response.data[0].CustomerName)
 
     }, [])
 
 
+    console.log("TempCustomer name", Name)
 
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -99,17 +100,98 @@ const RestaurantCustomerView = () => {
     return (
         <>
             <Navbar />
-            <div className="container">
-                <div className="row">
-                    <div className="col s12 board">
-                        <table id="simple-board">
-                            <tbody>
-                                {Name}{NickName}
-                            </tbody>
-                        </table>
+            <br></br>
+      <div class="container">
+        <div class="row gutters">
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="account-settings">
+                  <div class="user-profile">
+                    <div class="user-avatar">
+                      {/* <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" /> */}
+
+                      <img className="main myImage" src={Image} height={140} width={140} alt='Damn!'/>
+                      <br></br>
+
+                      
                     </div>
+                 
+                    
+                  </div>
+                  
                 </div>
+              </div>
             </div>
+          </div>
+          <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="row gutters">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mb-2 text-primary">Personal Details</h6>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="fullName">Full Name</label>
+                      <input type="text" class="form-control" id="fullName" placeholder={Name}/>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="eMail">Email</label>
+                      <input type="email" class="form-control" id="eMail" placeholder={Email}  />
+                      {/* onChange={(e) => { setEmail(e.currentTarget.value); }} */}
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="text" class="form-control" id="phone" placeholder={PhoneNumber}  />
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row gutters">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mt-3 mb-2 text-primary">Address</h6>
+                  </div>
+
+                  {/* country */}
+
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="city">Country</label>
+                      <input type="name" class="form-control" id="city" placeholder={Country}  />
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="city">City</label>
+                      <input type="name" class="form-control" id="city" placeholder={City} />
+                    </div>
+                  </div>
+                  {/* <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="sTate">State</label>
+                      <input type="text" class="form-control" id="state" placeholder={State} />
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label for="zIp">Zip Code</label>
+                      <input type="text" class="form-control" id="zip" placeholder={zipcode} />
+                    </div>
+                  </div> */}
+                </div>
+                <br></br>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
         </>
     )
 

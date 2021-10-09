@@ -12,11 +12,14 @@ router.post("/LandingPage", (req, res) => {
     con.query("SELECT * FROM Customer1 where EmailId = ? ", [useremail], async (err, result, fields) => {
         const salt = await bcrypt.genSalt(15)
        // const newHashedPassword = bcrypt.hash(result[0].CustomerPassword, salt)
-        const isValid = bcrypt.compare(userpassword, result[0].CustomerPassword)
+       console.log(result[0].CustomerPassword)
+        const isValid = await bcrypt.compare(userpassword, result[0]["CustomerPassword"])
         if (isValid) {
+            console.log("valid")
             res.status(200).send(result)
         }
         else {
+            console.log("Invalid")
             res.status(400).send({ message: "Invalid Credentials" })
         }
     })
@@ -35,7 +38,7 @@ router.post("/LandingPage", (req, res) => {
             //const newHashedPassword = bcrypt.hash(result[0].RestaurantPassword, salt)
             console.log( result[0].RestaurantPassword)
             console.log("hahaha");
-            const isValid = bcrypt.compare(userpassword, result[0].RestaurantPassword)
+            const isValid = await bcrypt.compare(userpassword, result[0]["RestaurantPassword"])
             
             if (isValid) {
                 let results = {
@@ -53,6 +56,7 @@ router.post("/LandingPage", (req, res) => {
                 res.status(200).send(result)
             }
             else {
+                console.log("Invalid")
                 res.status(400).send({ message: "Invalid Credentials" })
             }
 

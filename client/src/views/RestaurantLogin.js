@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import {useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 import  logged  from '../actions';
-
+import { Row, Col, Alert } from 'react-bootstrap';
 
 
 const RestaurantLogin = () => {
@@ -19,6 +19,7 @@ const RestaurantLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const [alert, setAlert] = useState('');
 
 
   const login = () => {
@@ -31,7 +32,7 @@ const RestaurantLogin = () => {
       history.push('/RestaurantDashboard')
     })
       .catch((err) => {
-        alert(err)
+        setAlert("Invalid User Name or Password")
       })
 
     //    return email.length > 0 && password.length > 0;
@@ -119,6 +120,9 @@ const RestaurantLogin = () => {
           <Button block size="lg" type="submit" onClick={() => login()} style={styleimg} disabled={!validateForm()}>
             Login
           </Button>
+          <br></br>
+          {alert.length > 0 && < Alert variant="danger" > {alert} </Alert>}
+
         </Form>
       </div>
     </>

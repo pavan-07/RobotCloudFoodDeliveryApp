@@ -33,9 +33,32 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
+import { MenuItem } from '@mui/material';
 
 const theme = createTheme();
+
+
+const dishTypes = [{
+    key: "starter",
+    value: "Entree"
+}, {
+    key: "main-course",
+    value: "Main Dish"
+}, {
+    key: "dessert",
+    value: "Sweet Tooth"
+}];
+
+const dishcategory = [{
+    key: "veg",
+    value: "Veg"
+}, {
+    key: "nonveg",
+    value: "Non-Veg"
+}, {
+    key: "vegan",
+    value: "Vegan"
+}];
 
 const AddDish = () => {
 
@@ -73,22 +96,27 @@ const AddDish = () => {
         }
 
         const restaurantId = localStorage.getItem('RestaurantId');
-        const dishid = localStorage.getItem('editDish');
+        //const dishid = localStorage.getItem('editDish');
+        const dishId = sessionStorage.getItem('dishId');
+           
 
         let payload = {
+            dishId: dishId,
             restaurantId: restaurantId,
             dishdesc: data.get('desc'),
             category: data.get('category'),
             price: data.get('price'),
             name: data.get('name'),
-            //   type: data.get('type'),
+            type: data.get('type'),
             imageUrl: imageUrl
         }
 
-        axios.post(`${backendServer}/restaurant/dishes/${dishid}`, payload)
+        console.log("dishes payload", payload)
+
+        axios.post(`${backendServer}/restaurant/Add/dishes`, payload)
             .then(response => {
                 console.log(response)
-                sessionStorage.setItem("DishId", response.data.dishId)
+                
                 history.push("/RestaurantDashboard")
             })
             .catch(err => {
@@ -98,9 +126,10 @@ const AddDish = () => {
     };
 
     useEffect(async () => {
-        const DishId = localStorage.getItem('editDish');
-        if (DishId != '') {
-            const response = await axios.get(`${backendServer}/dishes/${DishId}`);
+        const dishId = sessionStorage.getItem('dishId');
+
+        if (dishId) {
+            const response = await axios.get(`${backendServer}/dishes/${dishId}`);
             console.log("Dishes response", response)
             const dish = response.data;
             setName(dish.DishName);
@@ -211,6 +240,29 @@ const AddDish = () => {
                                         />
     
                                     </Grid> */}
+                                    <Grid item xs={12}>
+                                    <TextField
+                                        margin="none"
+                                        required
+                                        fullWidth
+                                        id="type"
+                                        label="Type of the Dish"
+                                        value={type}
+                                        onChange={(e) => setType(e.target.value)}
+                                        name="type"
+                                       // disabled={disabled}
+                                        autoComplete="type"
+                                        select
+                                        autoFocus
+                                    >
+                                        {dishTypes.map((option) => (
+                                            <MenuItem key={option.key} value={option.value}>
+                                                {option.value}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+
+                                </Grid>
 
                                 <Grid item xs={12}>
                                     <TextField
@@ -223,9 +275,17 @@ const AddDish = () => {
                                         id="category"
                                         label="Category"
                                         name="category"
+                                      
                                         autoComplete="category"
                                         autoFocus
-                                    />
+                                        select
+                                    >
+                                        {dishcategory.map((option) => (
+                                            <MenuItem key={option.key} value={option.value}>
+                                                {option.value}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
                                 </Grid>
 
                                 <Grid item xs={12}>

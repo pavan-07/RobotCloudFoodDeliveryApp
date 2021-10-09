@@ -35,8 +35,8 @@ const LandingPage = () => {
       dispatch(logged(response.data[0].CustomerName, response.data[0].EmailId ));
       history.push('/RestaurantView')
     })
-      .catch((err) => {
-        setAlert(err)
+      .catch((error) => {
+        setAlert("Invalid User Name or Password")
       })
 
     //    return email.length > 0 && password.length > 0;
@@ -113,6 +113,7 @@ const LandingPage = () => {
           <Button block size="lg" type="submit" onClick={() => login()} style={styleimg} disabled={!validateForm()}>
             Login
           </Button>
+          <br></br>
           {alert.length > 0 && < Alert variant="danger" > {alert} </Alert>}
 
         </Form>

@@ -168,23 +168,23 @@ const menuItems = [
   {
     listIcon: <FaceIcon />,
     listText: 'Profile',
-    listPath: '/UserProfile'
+    listPath: '/RestaurantProfile'
   },
   {
     listIcon: <Home />,
     listText: 'Orders',
-    listPath: '/customer/Register'
+    listPath: '/RestaurntOrder'
   },
   {
     listIcon: <ShoppingCartIcon />,
-    listText: 'Cart',
-    listPath: '/RegisterRestaurant/'
+    listText: 'Menu',
+    listPath: '/RestaurantDashboard'
   },
-  {
-    listIcon: <FavoriteIcon />,
-    listText: 'Favourites',
-    listPath: '/Favourites'
-  },
+  // {
+  //   listIcon: <FavoriteIcon />,
+  //   listText: 'Favourites',
+  //   listPath: '/Favourites'
+  // },
   {
     listIcon: <LogoutIcon onClick={logout1} />,
     listText: 'Logout',

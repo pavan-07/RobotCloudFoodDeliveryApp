@@ -13,26 +13,29 @@ router.get("/Restaurant/dishes/:id", function (req, res) {
     });
 });
 
-router.post("/restaurant/dishes/:id", (req, res) => {
-    let { name, dishdesc, restaurantId, category, price, imageUrl } = req.body;
-    const dishid = req.params.id;
-    console.log("res", req)
-    dishId = uuidv4();
+router.post("/restaurant/Add/dishes", (req, res) => {
+    console.log("response body")
+    let { dishId, name, type, dishdesc, restaurantId, category, price, imageUrl } = req.body;
+    // const dishid = req.params.id;
+    console.log("res", req.body.name)
+  
     
-    const getdata = "select * from dishes where DishId=?";
-    con.query(getdata, [dishid], async (err, results, fields) => {
-        console.log("dish id", dishid)
-        console.log("dish id1", results[0].DishId)
+    // const getdata = "select * from dishes";
+    // con.query(getdata, async (err, results, fields) => {
+    //     console.log("dish id", dishId)
+       // console.log("dish id1", results[0].DishId)
 
-        if (results[0].DishId == dishid) {
+        if (dishId) {
             console.log("dish id is equal")
-            const updatedish = "UPDATE dishes SET DishName = ?, DishDesc = ?, Price = ?, DishCategory = ? WHERE DishId = ?"
-            con.query(updatedish, [name, dishdesc, price, category, dishid], async (err, results, fields) => {
+            const updatedish = "UPDATE dishes SET DishName = ?, DishType = ?, DishDesc = ?, Price = ?, DishCategory = ? WHERE DishId = ?"
+            con.query(updatedish, [name, type,dishdesc, price, category, dishId], async (err, results, fields) => {
                 if (err)  {
+                    console.log(err)
                         res.status(500).send({ error: 'Unknown internal server error' });
                     }
                 
                 else {
+                    console.log(results)
                     res.send({ dishId: dishId });
                    // res.end("table updated")
                 
@@ -42,8 +45,9 @@ router.post("/restaurant/dishes/:id", (req, res) => {
 
         else {
             console.log("i am here")
-            const query = "INSERT INTO dishes(DishId, RestaurantId, DishDesc, DishCategory, Price,DishImage, DishName) VALUES(?,?,?,?,?,?,?)";
-            con.query(query, [dishId, restaurantId, dishdesc, category, price, imageUrl, name], async (err, results, fields) => {
+            dishId = uuidv4();
+            const query = "INSERT INTO dishes(DishId, RestaurantId, DishDesc, DishCategory, Price,DishImage, DishName, DishType) VALUES(?,?,?,?,?,?,?,?)";
+            con.query(query, [dishId, restaurantId, dishdesc, category, price, imageUrl, name, type], async (err, results, fields) => {
                 if (err) {
                     if (err.code === 'ER_DUP_ENTRY') {
                         res.status(400).send({ error: "Dish already exists" });
@@ -52,12 +56,13 @@ router.post("/restaurant/dishes/:id", (req, res) => {
                     }
                 }
                 else {
+                    console.log(results)
                     res.send({ dishId: dishId });
                 }
             })
         }
 
-    })
+    // })
 })
 
 

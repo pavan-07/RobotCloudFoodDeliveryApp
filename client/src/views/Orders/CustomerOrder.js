@@ -40,7 +40,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import Receipt from '../Dashboards/Receipt';
-
+import NavbarCustomer from '../NavbarCustomer';
 
 
 
@@ -164,7 +164,7 @@ if(!localStorage.getItem("CustomerID")){
 
   return (
     <>
-      <Navbar handleBtnChange={onChange} />
+      <NavbarCustomer view="OrderPage" handleBtnChange={onChange} />
       <h2 style={{
         display: "flex",
         paddingTop: "20px",

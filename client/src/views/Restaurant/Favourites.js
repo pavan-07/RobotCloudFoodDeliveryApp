@@ -29,13 +29,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 const theme = createTheme();
 
 const Favourites = () => {
-    const history = useHistory();
+     const history = useHistory();
 
-    const custId = localStorage.getItem("CustomerID")
+     const custId = localStorage.getItem("CustomerID")
 
-    if(!localStorage.getItem("CustomerID")){
-        history.push("/LandingPage")
-    }
+    // if(!localStorage.getItem("CustomerID")){
+    //     history.push("/LandingPage")
+    // }
 
     const [FavCards, setFavCards] = useState([]);
 
@@ -45,6 +45,11 @@ const Favourites = () => {
 
         console.log("fav response",  response);
     }, [])
+
+    const ViewRest = (ID) =>{
+        sessionStorage.setItem('currentRestaurant', ID);
+        history.push("/CustomerDashBoard");
+    }
 
     return (
         <>
@@ -81,10 +86,10 @@ const Favourites = () => {
                                             {card.RestaurantDesc}
                                         </Typography>
                                     </CardContent>
-                                    {/* <CardActions>
-                                        <Button size="small">Share</Button>
-                                        <Button size="small">Learn More</Button>
-                                    </CardActions> */}
+                                    <CardActions>
+                                        <Button size="small" onClick={() =>ViewRest(card.RestaurantId)}>View</Button>
+                                       
+                                    </CardActions>
                                 </Card>
                             </Grid>
                          ))} 

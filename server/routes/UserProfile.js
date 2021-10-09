@@ -19,16 +19,17 @@ router.get("/UserProfile/User", (req, res) => {
 
 router.post("/UserProfile", function (req, res) {
   // console.l("In profile update");
-  console.log(req);
+  console.log("request", req.body.imageUrl);
   const emailId = req.body.email;
-  const emailUpdate = req.body.emailUpdate;
-  const fullnameUpdate = req.body.fullnameUpdate;
-  const phonenumberUpdate = req.body.phonenumberUpdate;
-  const cityUpdate = req.body.cityUpdate;
-  const state = req.body.stateUpdate;
-  const zipcodeUpdate = req.body.zipcodeUpdate;
+  const emailUpdate = req.body.email;
+  const fullnameUpdate = req.body.fullname;
+  const nickname = req.body.nickname
+  const phonenumberUpdate = req.body.phonenumber;
+  const cityUpdate = req.body.city;
+  const state = req.body.state;
+  const zipcodeUpdate = req.body.zipcode;
   const imageURL = req.body.imageUrl;
-  const country = req.body.countryUpdate
+  const country = req.body.country
   // if (emailUpdate !== "") {
   //   if (emailUpdate !== emailId) {
   //     const updateAlias = "update Customer1 set  EmailId=?";
@@ -52,6 +53,15 @@ router.post("/UserProfile", function (req, res) {
   if (fullnameUpdate !== "") {
     const updateAlias = "update Customer1 set CustomerName=? where EmailId=?";
     con.query(updateAlias, [fullnameUpdate, emailId], (err, result) => {
+      if (err) throw err;
+      //console.log(result);
+
+    });
+  }
+
+  if (nickname !== "") {
+    const updateAlias = "update Customer1 set NickName=? where EmailId=?";
+    con.query(updateAlias, [nickname, emailId], (err, result) => {
       if (err) throw err;
       //console.log(result);
 
@@ -84,13 +94,22 @@ router.post("/UserProfile", function (req, res) {
         // console.l(result);
       });
     }
-    // if (zipcodeUpdate !== "") {
-    //   const updateAlias = "update customer set state=? where EmailId=?";
-    //   con.query(updateAlias, [state, emailId], (err, result) => {
-    //     if (err) throw err;
-    //     // console.l(result);
-    //   });
-    // }
+    if (zipcodeUpdate !== "") {
+      const updateAlias = "update Customer1 set ZipCode=? where EmailId=?";
+      con.query(updateAlias, [zipcodeUpdate, emailId], (err, result) => {
+        if (err) throw err;
+        // console.l(result);
+      });
+    }
+
+    if (state !== "") {
+      const updateAlias = "update Customer1 set State=? where EmailId=?";
+      con.query(updateAlias, [state, emailId], (err, result) => {
+        if (err) throw err;
+        // console.l(result);
+      });
+    }
+
     res.status(200).json({ message: "Updation Successful" });
   });
 

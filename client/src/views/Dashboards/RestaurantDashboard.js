@@ -68,15 +68,7 @@ function RestaurantDashboard() {
   };
 
 
-  const EditDish = (EditDishId)=>{
 
-    localStorage.setItem("editDish", EditDishId)
-    console.log("Dish id is here", EditDishId)
-    if(EditDishId != ''){
-    history.push("/AddDish")
-    }
-   
-  };
  
 
   useEffect(() => {
@@ -109,10 +101,22 @@ function RestaurantDashboard() {
 
  
   const onAddDishes = (event) => {
+    sessionStorage.removeItem("dishId");
    
     history.push("/AddDish")
     
   }
+
+  const EditDish = (EditDishId)=>{
+
+    sessionStorage.setItem("dishId", EditDishId);
+    
+    console.log("Dish id is here", EditDishId)
+    // if(EditDishId != ''){
+    history.push("/AddDish")
+    // }
+   
+  };
 
   const ViewOrders = () =>{
     history.push("/RestaurantOrder")
@@ -187,7 +191,7 @@ function RestaurantDashboard() {
                         {card.DishDesc}
                       </Typography>
                       <Typography>
-                        {card.Price}
+                        {"$"}{card.Price}
                       </Typography>
                     </CardContent>
                     <CardActions>

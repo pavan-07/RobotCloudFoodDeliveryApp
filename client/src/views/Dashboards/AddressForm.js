@@ -9,15 +9,15 @@ import { useState, useHistory } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import backendServer from '../../Config';
-
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 export default function AddressForm(props) {
 
-    const history = useHistory();
+//     const history = useHistory();
 
-if(!localStorage.getItem("CustomerID")){
-  history.push("/LandingPage")
-}
+// if(!localStorage.getItem("CustomerID")){
+//   history.push("/LandingPage")
+// }
     const [addr1, setAddr1] = useState('');
     const [addr2, setAddr2] = useState('');
     const [city, setCity] = useState('');
@@ -128,6 +128,7 @@ if(!localStorage.getItem("CustomerID")){
                         disabled={newAddressSelection}
                         fullWidth
                         value={addr1}
+                        required
                         onChange={(e) => { props.onAddressChange(e); setAddr1(e.target.value) }}
                         autoComplete="delivery address-line1"
                         variant="standard"

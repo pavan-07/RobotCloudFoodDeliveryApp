@@ -24,13 +24,12 @@ import { useSelector } from 'react-redux';
 import { Image } from 'react-bootstrap/esm';
 import {  createMuiTheme } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
-    palette: {
-      type: "dark",
-    }
-  });
+
+const theme = createTheme();
 
 export default function RestaurantProfile() {
+
+    
 
     const history = useHistory();
   if(!localStorage.getItem("RestaurantId")){
@@ -79,7 +78,7 @@ export default function RestaurantProfile() {
 
         axios.post(`${backendServer}/restaurant/${restaurantId}`, payload)
             .then(response => {
-                history.push("/restaurant/dashBoard")
+                history.push("/ResturantProfile")
             })
             .catch(err => {
                 console.log("Error");
@@ -118,6 +117,8 @@ export default function RestaurantProfile() {
     const imageStyle = {
         "margin-left": '45%'
     }
+
+    
 
     return (
         <>
