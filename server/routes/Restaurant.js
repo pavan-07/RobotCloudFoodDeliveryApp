@@ -9,9 +9,9 @@ router.get("/Restaurants", (req, res) => {
     const city = req.query.city;
     console.log(req.query, typeof(country));
     let queryCondition='';
-    if(country.length >0)
+    if(country!='null' && country.length)
       queryCondition = queryCondition + " where Country = ? ";
-    if(city.length >0)
+    if(city!='null' && city.length)
       queryCondition = queryCondition + "and City = ?";
     const query = "Select * FROM restaurant" + queryCondition;
 
