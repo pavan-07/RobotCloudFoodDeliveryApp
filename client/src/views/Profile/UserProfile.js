@@ -1,4 +1,4 @@
-import Navbar from '../Navbar';
+import NavbarCustomer from '../NavbarCustomer';
 import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router';
@@ -181,7 +181,7 @@ const UserProfile = () => {
   //  const {items} = this.response;
   return (
     <>
-      <Navbar />
+      <NavbarCustomer view='customerdashboard' />
       <br></br>
       <div class="container">
         <div class="row gutters">

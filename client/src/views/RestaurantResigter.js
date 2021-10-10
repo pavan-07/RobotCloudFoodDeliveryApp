@@ -8,9 +8,10 @@ import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from '../Config'
 import { useHistory } from 'react-router-dom';
-import {useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
-import {signed} from '../actions';
+import { signed } from '../actions';
+import { Row, Col, Alert } from 'react-bootstrap';
 
 
 
@@ -19,7 +20,8 @@ const RestaurantRegister = () => {
     const [RestaurantName, setRestaurantName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const [alert, setAlert] = useState('');
 
 
     const Register = () => {
@@ -27,12 +29,16 @@ const RestaurantRegister = () => {
             { RestaurantName: RestaurantName, useremail: email, userpassword: password }
         ).then((response) => {
             console.log(response)
-      dispatch(signed(RestaurantName, email ));
+            dispatch(signed(RestaurantName, email));
             history.push('/RestaurantDashboard')
-        });
-
-        //    return email.length > 0&& password.length > 0;
+        })
+            .catch((error) => {
+                console.log("catch block")
+                setAlert("Email Already Exists")
+            })
     }
+
+    console.log("alerting", alert)
     function validateForm() {
         return email.length > 0 && password.length > 0;
     }
@@ -103,6 +109,10 @@ const RestaurantRegister = () => {
                     <Button block size="lg" type="submit" onClick={() => Register()} style={styleimg} disabled={!validateForm()}>
                         Submit
                     </Button>
+                    <br>
+                    </br>
+                    {alert.length > 0 && < Alert variant="danger" >{alert}</Alert>}
+
                 </Form>
             </div>
         </>

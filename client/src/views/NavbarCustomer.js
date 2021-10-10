@@ -213,13 +213,13 @@ const menuItems = [
   },
   {
     listIcon: <Home />,
-    listText: 'Orders',
-    listPath: '/customer/Register'
+    listText: 'Restaurant',
+    listPath: '/RestaurantView'
   },
   {
     listIcon: <ShoppingCartIcon />,
-    listText: 'Cart',
-    listPath: '/RegisterRestaurant/'
+    listText: 'Orders',
+    listPath: '/CustomerOrder'
   },
   {
     listIcon: <FavoriteIcon />,

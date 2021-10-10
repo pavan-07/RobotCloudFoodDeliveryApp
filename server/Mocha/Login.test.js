@@ -65,6 +65,89 @@ describe("UberEats", function () {
           });
       });
     });   
+
+    describe("Customer Register Test", function () {
+        it("User Already exists", () => {
+          agent
+            .post("/uber-eats/api/RegisterUser")
+            .send({
+              email: "akshay01@gmail.com",
+              password: "admin",
+              fullname: "Akshay",
+            })
+            .then(function (res) {
+              expect(res.text).to.equal("Email Id is already registered");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+    
+        it("Successful Signup", () => {
+          agent
+            .post("/uber-eats/api/RegisterUser")
+            .send({
+              email: "dhanushTest1@gmail.com",
+              password: "password",
+              fullname: "Dhanush B",
+            })
+            .then(function (res) {
+              expect(res.text).to.include('dhanushTest1@gmail.com');
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+      });
+
+
+      describe("Restaurant Register Test", function () {
+        it("User Already exists", () => {
+          agent
+            .post("/uber-eats/api/RegisterUser")
+            .send({
+              email: "glens@gmail.com",
+              password: "password",
+              fullname: "glens 123",
+            })
+            .then(function (res) {
+              expect(res.text).to.include("Email Id is already registered");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+    
+        it("Restaurant Successful Signup", () => {
+          agent
+            .post("/uber-eats/api/RegisterUser/Restaurant")
+            .send({
+              email: "biryani@gmail.com",
+              password: "biryani",
+              fullname: "Veg Biryani",
+            })
+            .then(function (res) {
+              expect(res.text).to.include('biryani@gmail.com');
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+      });
+
+      describe("Restaurant List", function () {
+        it("Get a List of Restaurants", () => {
+          agent
+            .get("/uber-eats/api/Restaurant")
+            .then(function (res) {
+              expect(res.text).to.include("RestaurantName");
+              
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+    })
   
 });
 

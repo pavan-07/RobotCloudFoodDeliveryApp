@@ -224,7 +224,8 @@ const RestaurantView = () => {
                     </Typography> */}
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={() => onView(card)}>View</Button> <FavoriteBorderIcon onClick={() => addFavourite(card.RestaurantId)} style={{ color: "red" }} />
+                    <Button variant="contained" size="small" onClick={() => onView(card)}><b>View</b></Button> 
+                    <Button variant="contained" size="small"><FavoriteBorderIcon onClick={() => addFavourite(card.RestaurantId)} style={{ colorFill: "red" }} /> </Button>
                     {/* onClick={() => goToDetails(name)} */}
                     {/* <Button size="small">Edit</Button> */}
                   </CardActions>

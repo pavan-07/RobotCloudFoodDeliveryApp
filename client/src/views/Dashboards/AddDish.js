@@ -87,12 +87,13 @@ const AddDish = () => {
         event.preventDefault();
         console.log(event.currentTarget);
         const data = new FormData(event.currentTarget);
-
+        let url;
         if (image) {
             let imageData = new FormData()
             imageData.append('image', image)
             let response = await axios.post(`${backendServer}/image/dish`, imageData);
-            setImageUrl(response.data.imageUrl);
+            url = response.data.imageUrl
+            setImageUrl(url);
         }
 
         const restaurantId = localStorage.getItem('RestaurantId');
@@ -108,7 +109,7 @@ const AddDish = () => {
             price: data.get('price'),
             name: data.get('name'),
             type: data.get('type'),
-            imageUrl: imageUrl
+            imageUrl: url || imageUrl
         }
 
         console.log("dishes payload", payload)

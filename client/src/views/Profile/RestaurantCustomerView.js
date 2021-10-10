@@ -52,7 +52,7 @@ const RestaurantCustomerView = () => {
 
         console.log("TempCustomerId", response.data)
         setCards(response.data)
-        setImage(response.data[0].Image)
+        setImage(response.data[0].image)
         setEmail(response.data[0].EmailId)
         setDob(response.data[0].DoB)
         setPhoneNumber(response.data[0].PhoneNumber)

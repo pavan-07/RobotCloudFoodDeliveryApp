@@ -31,16 +31,32 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import NavbarCustomer from '../NavbarCustomer';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { TextField } from '@mui/material';
+import { MenuItem } from '@mui/material';
 
 const theme = createTheme();
 
 export default function CustomerDashBoard() {
 
-  
+  const dishcategory = [
+    {
+      key: "all",
+      value: "All"
+    },
+    {
+      key: "veg",
+      value: "Veg"
+    }, {
+      key: "nonveg",
+      value: "Non Veg"
+    }, {
+      key: "vegan",
+      value: "Vegan"
+    }];
 
-if(!localStorage.getItem("CustomerID")){
-  history.push("/LandingPage")
-}
+  if (!localStorage.getItem("CustomerID")) {
+    history.push("/LandingPage")
+  }
 
   const [cards, setCards] = useState([]);
   const [initialLoad, setInitialLoad] = useState([]);
@@ -51,15 +67,18 @@ if(!localStorage.getItem("CustomerID")){
   const [multipleOrderDialog, setMultipleOrderDialog] = useState(false);
   const [currentRestaurant, setCurrentRestaurant] = useState('');
   const [newRestaurant, setNewRestaurant] = useState('');
+  const [filterType, setFilterType] = useState('All');
+
+  const [filterCategory, setFilterCategory] = useState('All');
 
   const CurrRestaurantDetails = JSON.parse(sessionStorage.getItem('currentRestaurantDetails'))
-    console.log("sesson Value",CurrRestaurantDetails)
+  console.log("sesson Value", CurrRestaurantDetails)
 
   useEffect(async () => {
     const restaurantId = sessionStorage.getItem('currentRestaurant');
     console.log("RestaurantId", restaurantId)
 
-  
+
 
     const url = `${backendServer}/Restaurant/dishes/${restaurantId}`;
     const response = await axios.get(url);
@@ -145,9 +164,26 @@ if(!localStorage.getItem("CustomerID")){
     }
   }
 
+  const onSearchCategory = (searchTerm) => {
+    console.log("searchTerm", searchTerm)
+    setFilterCategory(searchTerm);
+    if (searchTerm == "All") {
+      setCards(initialLoad);
+      return;
+    }
+    let tfilter = searchTerm == "All" ? initialLoad : initialLoad.filter(card => card.DishType != null
+      && card.DishType == filterType);
+    let cfilter = initialLoad.filter(card => card.DishCategory == searchTerm)
+    setCards(cfilter);
+  }
+
+  const vieworders = () =>{
+    history.push("/CustomerOrder")
+  }
+
   return (
     <>
-      <NavbarCustomer onSearch={onSearch} view='customerrestaurant'/>
+      <NavbarCustomer onSearch={onSearch} view='customerrestaurant' />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <main>
@@ -167,21 +203,49 @@ if(!localStorage.getItem("CustomerID")){
                 color="text.primary"
                 gutterBottom
               >
-                Welcome back!
+                Hu
               </Typography>
               <Typography variant="h5" align="center" color="text.secondary" paragraph>
                 You deserve the best food in the city
               </Typography>
+              <Box textAlign='center'>
+                <Button variant='contained' onClick={vieworders}>
+                  View Orders
+                </Button>
+              </Box>
+
               <Stack
                 sx={{ pt: 4 }}
                 direction="row"
                 spacing={2}
                 justifyContent="center"
               >
-                <Button variant="contained" >View Cart</Button>
+                <Grid item xs={12} sm={6} >
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    select
+                    name="category"
+                    label="Dish Category"
+                    type="text"
+                    id="category"
+                    value={filterCategory}
+                    onChange={(event) => { setFilterCategory(event.target.value); onSearchCategory(event.target.value) }}
+                    autoComplete="Dish Category"
+                  >
+                    {dishcategory.map((option) => (
+                      <MenuItem key={option.key} value={option.value}>
+                        {option.value}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
                 {/* onClick={()=>onAddDishes()} */}
                 {/* <Button variant="outlined">View Orders</Button> */}
               </Stack>
+
             </Container>
           </Box>
           <Container sx={{ py: 8 }} maxWidth="md">

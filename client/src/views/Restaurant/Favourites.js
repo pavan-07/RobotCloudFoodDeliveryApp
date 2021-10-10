@@ -87,7 +87,7 @@ const Favourites = () => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small" onClick={() =>ViewRest(card.RestaurantId)}>View</Button>
+                                        <Button variant="contained" size="small" onClick={() =>ViewRest(card.RestaurantId)}>View</Button>
                                        
                                     </CardActions>
                                 </Card>

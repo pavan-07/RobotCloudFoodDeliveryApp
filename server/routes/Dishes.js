@@ -17,7 +17,7 @@ router.post("/restaurant/Add/dishes", (req, res) => {
     console.log("response body")
     let { dishId, name, type, dishdesc, restaurantId, category, price, imageUrl } = req.body;
     // const dishid = req.params.id;
-    console.log("res", req.body.name)
+    console.log("res", imageUrl)
   
     
     // const getdata = "select * from dishes";
@@ -27,15 +27,15 @@ router.post("/restaurant/Add/dishes", (req, res) => {
 
         if (dishId) {
             console.log("dish id is equal")
-            const updatedish = "UPDATE dishes SET DishName = ?, DishType = ?, DishDesc = ?, Price = ?, DishCategory = ? WHERE DishId = ?"
-            con.query(updatedish, [name, type,dishdesc, price, category, dishId], async (err, results, fields) => {
+            const updatedish = "UPDATE dishes SET DishName = ?, DishType = ?, DishDesc = ?, Price = ?, DishCategory = ?, DishImage=? WHERE DishId = ?"
+            con.query(updatedish, [name, type,dishdesc, price, category,imageUrl, dishId], async (err, results, fields) => {
                 if (err)  {
                     console.log(err)
                         res.status(500).send({ error: 'Unknown internal server error' });
                     }
                 
                 else {
-                    console.log(results)
+                    //console.log(results)
                     res.send({ dishId: dishId });
                    // res.end("table updated")
                 
@@ -56,7 +56,7 @@ router.post("/restaurant/Add/dishes", (req, res) => {
                     }
                 }
                 else {
-                    console.log(results)
+                    //console.log(results)
                     res.send({ dishId: dishId });
                 }
             })
