@@ -173,7 +173,7 @@ const menuItems = [
   {
     listIcon: <Home />,
     listText: 'Orders',
-    listPath: '/RestaurntOrder'
+    listPath: '/RestaurantOrder'
   },
   {
     listIcon: <ShoppingCartIcon />,

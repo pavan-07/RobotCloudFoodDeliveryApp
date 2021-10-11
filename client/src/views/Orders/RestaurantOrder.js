@@ -232,7 +232,7 @@ const RestaurantOrder = () => {
               <TableCell align="center">{row.TotalAmount}</TableCell>
               <TableCell align="center">{row.OrderStatus}</TableCell>
               <TableCell align="center"> 
-              <Button onClick={() =>{handleClickOpen(row.OrderId)}}>Edit Order</Button>
+              <Button onClick={handleClickOpen(row.OrderId)}>Edit Order</Button>
                             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
                                 <DialogTitle>Update Order Status</DialogTitle>
                                 <DialogContent>
