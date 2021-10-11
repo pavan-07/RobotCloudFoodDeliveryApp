@@ -39,22 +39,28 @@ router.post("/RegisterUser/Restaurant", async (req, res) => {
     const useremail = req.body.useremail;
     const userpassword = req.body.userpassword;
     const Restaurantid = uuid.v1();
-   // console.log(Restaurantid, username, useremail, userpassword)
+    console.log(Restaurantid, username, useremail, userpassword)
 
     encryptedPass = await bcrypt.hash(userpassword, 10);
 
     const query1 = "insert INTO restaurant(RestaurantId, RestaurantName,RestaurantEmail, RestaurantPassword) VALUES ( ?, ?, ?, ?)";
     con.query(query1, [Restaurantid, username, useremail, encryptedPass], (err, result, fields) => {
-        if (err) {
-            console.log(err);
-            if (err.code === 'ER_DUP_ENTRY') {
-                res.status(400).send({ error: "Email Id is already registered" });
-            } else {
-                res.status(500).send({ error: 'Unknow internal server error' });
-            }
-        } else {
-            res.send(result);
-        }
+        // if (err) {
+        //     console.log(err);
+        //     if (err.code === 'ER_DUP_ENTRY') {
+        //         res.status(400).send({ error: "Email Id is already registered" });
+        //     } else {
+        //         res.status(500).send({ error: 'Unknow internal server error' });
+        //     }
+        // } else {
+            console.log("result", result)
+            console.log("err", err)
+            console.log("fields", fields)
+            console.log("suharsh ")
+
+
+            res.status(200).send({Restaurantid:Restaurantid});
+        // }
 
     }
     )

@@ -30,10 +30,10 @@ const RestaurantRegister = () => {
         ).then((response) => {
             console.log(response)
             dispatch(signed(RestaurantName, email));
-            localStorage.setItem("RestaurantId",  response.data[0].RestaurantId)
+            localStorage.setItem("RestaurantId",  response.data.Restaurantid)
             history.push('/RestaurantDashboard')
         })
-            .catch((error) => {
+        .catch((error) => {
                 console.log("catch block")
                 setAlert("Email Already Exists")
             })
