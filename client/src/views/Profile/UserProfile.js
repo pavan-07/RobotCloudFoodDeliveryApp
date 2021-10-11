@@ -91,11 +91,14 @@ const UserProfile = () => {
     if (image) {
       let imageData = new FormData()
       imageData.append('image', image)
+      var url1;
       let url = `${backendServer}/image/user`
 
-      const imageResponse = await axios.post(url, imageData);
-      console.log("imageResponse",imageResponse.data.imageUrl)
-      setImageUrl(imageResponse.data.imageUrl);
+      const response = await axios.post(url, imageData);
+      console.log("imageResponse",response.data.imageUrl)
+      url1 = response.data.imageUrl
+      console.log("URL", url1)
+      setImageUrl(url1);
     }
 
 
@@ -109,7 +112,7 @@ const UserProfile = () => {
       city,
       state,
       zipcode,
-      imageUrl,
+      url1,
       country,
       state,
       zipcode
@@ -122,7 +125,7 @@ const UserProfile = () => {
         console.log(response);
         setFile("");
         //window.location.reload(false);
-        history.push("/UserProfile")
+        history.push("/RestaurantView")
       });
   };
 

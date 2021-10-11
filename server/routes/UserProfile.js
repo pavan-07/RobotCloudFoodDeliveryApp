@@ -28,7 +28,7 @@ router.post("/UserProfile", function (req, res) {
   const cityUpdate = req.body.city;
   const state = req.body.state;
   const zipcodeUpdate = req.body.zipcode;
-  const imageURL = req.body.imageUrl;
+  const imageURL = req.body.url1;
   const country = req.body.country
   // if (emailUpdate !== "") {
   //   if (emailUpdate !== emailId) {
@@ -154,10 +154,11 @@ router.post("/restaurant/:id",async(req,resp)=>{
   toHrs = req.body.toHrs;
   phone = req.body.phone;
   desc = req.body.desc;
+  mode = req.body.mode;
   imageUrl = req.body.imageUrl;
 
-  let query = "UPDATE restaurant SET RestaurantName = ?, RestaurantDesc = ?, Country = ?, City = ?, State = ?, PhoneNumber = ?,Pincode = ?, WorkHrsFrom = ? , WorkHrsTo = ?, Image = ? where RestaurantId = ?";
-  con.query(query,[restaurantName,desc,country,city,state,phone,pincode,fromHrs,toHrs,imageUrl,restaurantId],function(err,results, fields){
+  let query = "UPDATE restaurant SET RestaurantName = ?, RestaurantDesc = ?, Country = ?, City = ?, State = ?, PhoneNumber = ?,Pincode = ?, WorkHrsFrom = ? , WorkHrsTo = ?, DeliveryMode= ?, Image = ? where RestaurantId = ?";
+  con.query(query,[restaurantName,desc,country,city,state,phone,pincode,fromHrs,toHrs,mode, imageUrl,restaurantId],function(err,results, fields){
       if(err){
         console.log(err)
           resp.status(500).send({error:'Unknow internal server error'});

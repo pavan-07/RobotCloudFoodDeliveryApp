@@ -89,7 +89,7 @@ const RestaurantView = () => {
          console.log("InitialLoad", rfilter)
          break;
        case "Location":
-         let lfilter = initialLoad.filter(card => card.RestaurantName != null && card.Location.toLowerCase().includes(searchTerm.toLowerCase()));
+         let lfilter = initialLoad.filter(card => card.RestaurantName != null && card.City.toLowerCase().includes(searchTerm.toLowerCase()));
 
          setCards(lfilter);
          break;

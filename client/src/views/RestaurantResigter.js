@@ -30,6 +30,7 @@ const RestaurantRegister = () => {
         ).then((response) => {
             console.log(response)
             dispatch(signed(RestaurantName, email));
+            localStorage.setItem("RestaurantId",  response.data[0].RestaurantId)
             history.push('/RestaurantDashboard')
         })
             .catch((error) => {

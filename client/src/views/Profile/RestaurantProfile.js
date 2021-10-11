@@ -23,9 +23,21 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Image } from 'react-bootstrap/esm';
 import {  createMuiTheme } from '@material-ui/core/styles';
+import { MenuItem } from '@mui/material';
 
 
 const theme = createTheme();
+const deliveryModes = [{
+    key: "pickup",
+    value: "Pick-Up"
+}, {
+    key: "delivery",
+    value: "Delivery"
+},
+{
+    key: "both",
+    value: "Pick-Up/Delivery"
+}];
 
 export default function RestaurantProfile() {
 
@@ -37,7 +49,7 @@ export default function RestaurantProfile() {
   }
 
     const [image, setImage] = useState('');
-    const [imageUrl, setImageUrl] = useState(`${dishlogo}`);
+    const [imageUrl, setImageUrl] = useState('');
     const [name, setName] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
@@ -48,19 +60,24 @@ export default function RestaurantProfile() {
     const [desc, setDesc] = useState('');
     const [pincode, setPincode] = useState('');
     const [restaurantId, setRestaurantId] = useState('');
+    const [mode, setMode] = useState('');
 
     
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(event.currentTarget);
         const data = new FormData(event.currentTarget);
-
+        var url;
         if (image) {
             let imageData = new FormData()
             imageData.append('image', image)
             let response = await axios.post(`${backendServer}/image/dish`, imageData);
-            setImageUrl(response.data.imageUrl);
+      console.log("imageResponse",response.data.imageUrl)
+      url = response.data.imageUrl
+      setImageUrl(url);
         }
+
+        console.log(imageUrl)
 
         let payload = {
             restaurantId: restaurantId,
@@ -73,12 +90,13 @@ export default function RestaurantProfile() {
             fromHrs: data.get('fromHrs'),
             toHrs: data.get('toHrs'),
             phone: data.get('phone'),
-            imageUrl: imageUrl
+            mode:data.get('mode'),
+            imageUrl: url
         }
-
+        console.log(payload)
         axios.post(`${backendServer}/restaurant/${restaurantId}`, payload)
             .then(response => {
-                history.push("/ResturantProfile")
+                history.push("/RestaurantDashBoard")
             })
             .catch(err => {
                 console.log("Error");
@@ -102,6 +120,7 @@ export default function RestaurantProfile() {
         setState(restaurant.State);
         setRestaurantId(restaurant.RestaurantId);
         setImageUrl(restaurant.Image);
+        setMode(restaurant.DeliveryMode)
     }, [])
 
     const onPhotoChange = (event) => {
@@ -221,6 +240,8 @@ export default function RestaurantProfile() {
                                     />
                                 </Grid>
 
+                                
+
                                 <Grid item xs={12} sm={4}>
                                     <TextField
                                         margin="none"
@@ -301,6 +322,27 @@ export default function RestaurantProfile() {
                                         autoComplete="pincode"
                                         autoFocus
                                     />
+                                </Grid>
+                                <Grid item xs={12} sm={4}>
+                                    <TextField
+                                        margin="none"
+                                        required
+                                        fullWidth
+                                        select
+                                        name="mode"
+                                        label="Mode"
+                                        type="text"
+                                        id="mode"
+                                        value={mode}
+                                        onChange={(event) => { setMode(event.target.value) }}
+                                        autoComplete="mode"
+                                    >
+                                        {deliveryModes.map((option) => (
+                                            <MenuItem key={option.key} value={option.value}>
+                                                {option.value}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
                                 </Grid>
                             </Grid>
                             <br />
