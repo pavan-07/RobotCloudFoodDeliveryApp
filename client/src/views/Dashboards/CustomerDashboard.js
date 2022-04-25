@@ -203,7 +203,7 @@ export default function CustomerDashBoard() {
                 color="text.primary"
                 gutterBottom
               >
-                Hu
+                Hi
               </Typography>
               <Typography variant="h5" align="center" color="text.secondary" paragraph>
                 You deserve the best food in the city
