@@ -86,8 +86,11 @@ const LandingPage = () => {
       <Login />
       <div className="Login" style={stylebutton}>
         <Form onSubmit={handleSubmit}>
-          <img src={logo} width={'200'} height={'150'} style={styleimg} alt='' />
-
+          {/* <img src={logo} width={'200'} height={'150'} style={styleimg} alt='' /> */}
+          {/* <h4>Robot Cloud Food Delivery App</h4> */}
+          <br></br>
+          
+          <br></br>
           <h2 style={textstyle}>Welcome Back</h2>
           <br></br>
           <h6 style={textstyle}>Please Sign In with your E-mail</h6>

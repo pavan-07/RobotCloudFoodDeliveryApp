@@ -5,11 +5,11 @@ function dbConnectionProvider() {
     if (!db) {
         db = mysql.createPool({
             connectionLimit: 10,
-            host: "lab1akshay.cejfw5uyxavi.us-east-2.rds.amazonaws.com",
+            host: "robocloud.cc5dkkjbxv9s.us-east-1.rds.amazonaws.com",
             port: 3306,
             user: "admin",
             password: "admin1234",
-            database: "uber"
+            database: "robocloud"
         });
     }
     return db;

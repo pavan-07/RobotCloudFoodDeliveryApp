@@ -27,10 +27,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 //app.use("/",imagestore)
 var corsOptions = {
-    origin: "http://18.117.130.13:3000"
+    origin: "http://localhost:3000"
   };
 
-
+  // con.connect(function(err) {
+  //   if (err) {
+  //     return console.error('asdasd: ' + err.message);
+  //   }
+  
+  //   console.log('Connected to the MySQL server.');
+  // });
 
 // con.connect(function(err) {
 //     if (err) throw err;
@@ -49,16 +55,16 @@ app.use("/uber-eats/api", Orders)
 app.use("/uber-eats/api", DeliveryAddress)
 
 
-// app.get("/UserProfile", (req, res) => {
+app.get("/UserProfile", (req, res) => {
 
-//     con.query("Select * from Customer1 where CustomerId=1", (err, result, fields) => {
-//         if(err) throw err;
-//         console.log(err);
-//         res.send(result);
-//         console.log("hello")
-//     })
-//     console.log("hello")
-// })
+    con.query("Select * from Customer1 where CustomerId=1", (err, result, fields) => {
+        if(err) throw err;
+        console.log(err);
+        res.send(result);
+        console.log("hello")
+    })
+    console.log("hello")
+})
 
 const PORT = process.env.PORT || 3001;
 

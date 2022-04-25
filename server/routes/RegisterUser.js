@@ -20,7 +20,7 @@ router.post("/RegisterUser", async (req, res) => {
     encryptedPass = await bcrypt.hash(userpassword, 10);
 
     con.query(query1, [Customerid, useremail, username, encryptedPass], (err, result, fields) => {
-        //console.log(err);
+        console.log(err);
         if(err){
             if (err.code === 'ER_DUP_ENTRY') {
                 console.log("error message")

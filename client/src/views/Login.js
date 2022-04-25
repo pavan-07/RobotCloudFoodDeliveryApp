@@ -119,7 +119,8 @@ const Login = ()=> {
             onClick={toggleSlider(slider, false)}>
                 
             {/* <Avatar className={classes.avatar} src={avatar} alt='' /> */}
-          <img src={logo} width={'120'} height={'80'} style={styleimg} alt='' />
+          {/* <img src={logo} width={'120'} height={'80'} style={styleimg} alt='' /> */}
+       {/* <h4>Robot Cloud Food Delivery App</h4> */}
             
             <Divider />
             <List>
@@ -147,7 +148,8 @@ const Login = ()=> {
             {/* <MenuIcon /> */}
             </IconButton>
         <Typography variant="h6" className={classes.title}>
-       <a href="/"><img src={logo} width={'120'} height={'80'} alt='' /> </a>
+       {/* <a href="/"><img src={logo} width={'120'} height={'80'} alt='' /> </a> */}
+       <h4>Robot Cloud Food Delivery App</h4>
           </Typography>
           {/* {flag ?<>  */}
           <Button color="inherit" component={RouterLink} to="/LandingPage">Login</Button>
