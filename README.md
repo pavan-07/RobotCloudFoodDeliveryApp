@@ -1,6 +1,5 @@
 # Robot Cloud Food Delivery Application
 
-# Simulation of UberEATS
 
 To better understand the architecture, workings and technologies required to develop a MERN stack distributed system.
 
