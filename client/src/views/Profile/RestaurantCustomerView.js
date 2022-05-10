@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Image } from 'react-bootstrap/esm';
 import avatar from '../../images/img_avatar2.png'
-import logo from '../../images/UberEATS.png'
+//import logo from '../../images/UberEATS.png'
 import backendServer from '../../Config'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';

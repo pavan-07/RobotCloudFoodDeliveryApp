@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import react, { useState, useEffect } from "react";
 import '../images/style.css';
 import axios from 'axios';
-import logo from '../images/uberlogo.svg';
+//import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from './../Config'
 import { useHistory } from 'react-router-dom';
@@ -93,8 +93,8 @@ const RestaurantLogin = () => {
       <Login />
       <div className="Login" style={stylebutton}>
         <Form onSubmit={handleSubmit}>
-          <img src={logo} width={'200'} height={'150'} style={styleimg} alt='' />
-
+          {/* <img src={logo} width={'200'} height={'150'} style={styleimg} alt='' /> */}
+          <h4>Robot Cloud Food Delivery Application</h4>
           <h2 style={textstyle}>Welcome Back</h2>
           <br></br>
           <h6 style={textstyle}>Please Sign In & open your Restaurant to Customer's </h6>

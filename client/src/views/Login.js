@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import logo from '../images/uber-eats.svg';
-import newlogo from '../images/UberEATS.png';
+//import logo from '../images/uber-eats.svg';
+//import newlogo from '../images/UberEATS.png';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link as RouterLink } from 'react-router-dom';
 import LandingPage from './LandingPage';
@@ -30,7 +30,7 @@ import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import avatar from '../images/avatar.svg';
 import {Link} from 'react-router-dom';
 import MobileeRightMenuSlider from '@material-ui/core/Drawer';
-import uberlogo from '../images/uberlogo.svg';
+//import uberlogo from '../images/uberlogo.svg';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -120,7 +120,7 @@ const Login = ()=> {
                 
             {/* <Avatar className={classes.avatar} src={avatar} alt='' /> */}
           {/* <img src={logo} width={'120'} height={'80'} style={styleimg} alt='' /> */}
-       {/* <h4>Robot Cloud Food Delivery App</h4> */}
+       <h4>Robot Cloud Food Delivery App</h4>
             
             <Divider />
             <List>

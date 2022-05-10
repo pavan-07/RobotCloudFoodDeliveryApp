@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 //app.use("/",imagestore)
 var corsOptions = {
-    origin: "http://34.203.240.9:3000"
+    origin: "http://localhost:3000"
   };
 
   // con.connect(function(err) {

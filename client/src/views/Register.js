@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import React, {useState} from "react";
 import '../images/style.css';
 import axios from 'axios';
-import logo from '../images/uberlogo.svg';
+//import logo from '../images/uberlogo.svg';
 import wavebg from '../images/layered-waves.svg';
 import backendServer from '../Config'
 import { useHistory } from 'react-router-dom';
@@ -60,8 +60,8 @@ const RegisterUser = () =>{
         <Login />
          <div className="Login" style={stylebutton}>
       <Form onSubmit={handleSubmit}>
-      <img src={logo} width={'200'} height={'150'} style={styleimg} alt='' />
-
+      {/* <img src={logo} width={'200'} height={'150'} style={styleimg} alt='' /> */}
+      <h4>Robot Cloud Food Delivery Application</h4>
       <Form.Group size="lg" controlId="username">
           <Form.Label>User Name</Form.Label>
           <Form.Control

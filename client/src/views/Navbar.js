@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import logo from '../images/uber-eats.svg';
-import newlogo from '../images/UberEATS.png';
+//import logo from '../images/uber-eats.svg';
+//import newlogo from '../images/UberEATS.png';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link as RouterLink } from 'react-router-dom';
 import LandingPage from './LandingPage';
@@ -34,7 +34,7 @@ import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import avatar from '../images/avatar.svg';
 import { Link } from 'react-router-dom';
 import MobileeRightMenuSlider from '@material-ui/core/Drawer';
-import uberlogo from '../images/uberlogo.svg';
+//import uberlogo from '../images/uberlogo.svg';
 import SearchBar from "material-ui-search-bar";
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
@@ -227,8 +227,8 @@ const Navbar = (props) => {
       onClick={toggleSlider(slider, false)}>
 
       {/* <Avatar className={classes.avatar} src={avatar} alt='' /> */}
-      <img src={logo} width={'120'} height={'80'} style={styleimg} alt='' />
-
+      {/* <img src={logo} width={'120'} height={'80'} style={styleimg} alt='' /> */}
+      <h4>Robot Cloud Food Delivery Application</h4>
       <Divider />
       <List>
         {menuItems.map((listItem, key) => (
@@ -289,8 +289,8 @@ const Navbar = (props) => {
             {/* <MenuIcon /> */}
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <a href="/"><img src={logo} width={'120'} height={'80'} alt='' /> </a>
-
+            {/* <a href="/"><img src={logo} width={'120'} height={'80'} alt='' /> </a> */}
+          <h4>Robot Cloud Food Delivery Application</h4>
 
 
           </Typography>
